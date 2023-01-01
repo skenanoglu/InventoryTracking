@@ -1,5 +1,5 @@
-using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 
 namespace InventoryTrackingSystem.EntityFrameworkCore
 {
@@ -7,12 +7,12 @@ namespace InventoryTrackingSystem.EntityFrameworkCore
     {
         public static void Configure(DbContextOptionsBuilder<InventoryTrackingSystemDbContext> builder, string connectionString)
         {
-            builder.UseSqlServer(connectionString);
+            builder.UseNpgsql(connectionString);
         }
 
         public static void Configure(DbContextOptionsBuilder<InventoryTrackingSystemDbContext> builder, DbConnection connection)
         {
-            builder.UseSqlServer(connection);
+            builder.UseNpgsql(connection);
         }
     }
 }
