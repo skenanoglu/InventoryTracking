@@ -1,5 +1,12 @@
 import LoadableComponent from './../Loadable/index';
-import { HomeOutlined, UserOutlined, TagsOutlined, AppstoreOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import {
+  HomeOutlined,
+  UserOutlined,
+  TagsOutlined,
+  AppstoreOutlined,
+  InfoCircleOutlined,
+  DatabaseOutlined,
+} from '@ant-design/icons';
 
 export const userRouter: any = [
   {
@@ -65,6 +72,15 @@ export const appRouters: any = [
     icon: AppstoreOutlined,
     showInMenu: true,
     component: LoadableComponent(() => import('../../scenes/Tenants')),
+  },
+  {
+    path: '/products',
+    permission: '',
+    title: 'Products',
+    name: 'product',
+    icon: DatabaseOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/Products')),
   },
   {
     path: '/about',

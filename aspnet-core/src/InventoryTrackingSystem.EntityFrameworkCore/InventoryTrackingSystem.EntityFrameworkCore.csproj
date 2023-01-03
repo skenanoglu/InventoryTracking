@@ -28,7 +28,4 @@
   <ItemGroup>
     <ProjectReference Include="..\InventoryTrackingSystem.Core\InventoryTrackingSystem.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EntityFrameworkCore\Migrations\" />
-  </ItemGroup>
 </Project>
