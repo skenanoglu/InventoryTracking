@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Form, Input, Modal } from 'antd';
+import { Form, Input, Modal, Select } from 'antd';
 
 import { FormInstance } from 'antd/lib/form';
 import { L } from '../../../lib/abpUtility';
@@ -55,7 +55,28 @@ class CreateOrUpdateProduct extends React.Component<ICreateOrUpdateProductProps>
             <Input />
           </Form.Item>
           <Form.Item label={L('Weight')} name={'weight'} {...formItemLayout}>
-            <Input />
+            <Select
+              defaultValue="0-1KG"
+              style={{ width: 120 }}
+              options={[
+                {
+                  value: '1-3KG',
+                  label: '1-3KG',
+                },
+                {
+                  value: '3-5KG',
+                  label: '3-5KG',
+                },
+                {
+                  value: '5-10KG',
+                  label: '5-10KG',
+                },
+                {
+                  value: '10+KG',
+                  label: '10+KG',
+                },
+              ]}
+            />
           </Form.Item>
           <Form.Item label={L('Description')} name={'description'} {...formItemLayout}>
             <Input />

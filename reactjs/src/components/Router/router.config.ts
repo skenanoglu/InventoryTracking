@@ -4,7 +4,6 @@ import {
   UserOutlined,
   TagsOutlined,
   AppstoreOutlined,
-  InfoCircleOutlined,
   DatabaseOutlined,
 } from '@ant-design/icons';
 
@@ -81,15 +80,6 @@ export const appRouters: any = [
     icon: DatabaseOutlined,
     showInMenu: true,
     component: LoadableComponent(() => import('../../scenes/Products')),
-  },
-  {
-    path: '/about',
-    permission: '',
-    title: 'About',
-    name: 'about',
-    icon: InfoCircleOutlined,
-    showInMenu: true,
-    component: LoadableComponent(() => import('../../scenes/About')),
   },
   {
     path: '/logout',
