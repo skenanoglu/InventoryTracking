@@ -4,6 +4,7 @@ using InventoryTrackingSystem.Authorization.Roles;
 using InventoryTrackingSystem.Authorization.Users;
 using InventoryTrackingSystem.MultiTenancy;
 using System;
+using InventoryTrackingSystem.Debits;
 
 namespace InventoryTrackingSystem.EntityFrameworkCore
 {
@@ -16,6 +17,7 @@ namespace InventoryTrackingSystem.EntityFrameworkCore
         {
         }
         public DbSet<Products.Product> Product { get; set; }
+        public DbSet<CorporateDebit> CorporateDebit { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
