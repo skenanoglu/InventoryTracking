@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Input, Modal, Row, Table } from 'antd';
+import { Button, Card, Col, Input, Modal, Row, Table, Tag } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -128,19 +128,20 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
-      {
-        title: L('Employee Departement'),
-        dataIndex: 'employeeDepartment',
-        key: 'employeeDepartment',
-        width: 150,
-        render: (text: string) => <div>{text}</div>,
-      },
+
       {
         title: L('Employee Name'),
         dataIndex: 'employeeName',
         key: 'employeeName',
         width: 150,
-        render: (text: string) => <div>{text}</div>,
+        render: (text: string) => <Tag color="magenta">{text}</Tag>,
+      },
+      {
+        title: L('Employee Departement'),
+        dataIndex: 'employeeDepartment',
+        key: 'employeeDepartment',
+        width: 150,
+        render: (text: string) => <Tag color="geekblue">{text}</Tag>,
       },
       {
         title: L('Product Id'),

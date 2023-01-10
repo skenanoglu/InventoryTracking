@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Form, Input, Modal } from 'antd';
+import { Form, Input, InputNumber, Modal } from 'antd';
 
 import { FormInstance } from 'antd/lib/form';
 import { L } from '../../../lib/abpUtility';
@@ -58,10 +58,10 @@ class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersone
             <Input />
           </Form.Item>
           <Form.Item label={L('Product Id')} name={'productId'} {...formItemLayout}>
-            <Input />
+            <InputNumber />
           </Form.Item>
           <Form.Item label={L('Product Count')} name={'productCount'} {...formItemLayout}>
-            <Input />
+            <InputNumber />
           </Form.Item>
         </Form>
       </Modal>
