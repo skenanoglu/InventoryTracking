@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table } from 'antd';
+import { Button, Card, Col, Input, Modal, Row, Table } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -10,7 +10,7 @@ import { EntityDto } from '../../services/dto/entityDto';
 import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
 import CorporateDebitStore from '../../stores/corporateDebitStore';
-import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 
 export interface ICorporateDebitProps {
   corporateDebitStore: CorporateDebitStore;
@@ -157,27 +157,32 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Actions'),
+        title: L('Update'),
         width: 150,
         render: (text: string, item: any) => (
-          <div>
-            <Dropdown
-              trigger={['click']}
-              overlay={
-                <Menu>
-                  <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>
-                    {L('Edit')}
-                  </Menu.Item>
-                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>
-                </Menu>
-              }
-              placement="bottomLeft"
-            >
-              <Button type="primary" icon={<SettingOutlined />}>
-                {L('Actions')}
-              </Button>
-            </Dropdown>
-          </div>
+          <Button
+            shape="round"
+            type="primary"
+            onClick={() => this.createOrUpdateModalOpen({ id: item.id })}
+            icon={<SettingOutlined />}
+          >
+            {L('Update')}
+          </Button>
+        ),
+      },
+      {
+        title: L('Delete'),
+        width: 150,
+        render: (text: string, item: any) => (
+          <Button
+            danger
+            shape="round"
+            type="primary"
+            onClick={() => this.delete({ id: item.id })}
+            icon={<DeleteOutlined />}
+          >
+            {L('Delete')}
+          </Button>
         ),
       },
     ];
