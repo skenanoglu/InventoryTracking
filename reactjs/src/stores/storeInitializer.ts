@@ -5,6 +5,8 @@ import SessionStore from './sessionStore';
 import AuthenticationStore from './authenticationStore';
 import AccountStore from './accountStore';
 import ProductStore from './productStore';
+import CorporateDebitStore from './corporateDebitStore';
+import PersonelDebitStore from './personelDebitStore';
 
 export default function initializeStores() {
   return {
@@ -15,5 +17,7 @@ export default function initializeStores() {
     sessionStore: new SessionStore(),
     accountStore: new AccountStore(),
     productStore: new ProductStore(),
+    corporateDebitStore: new CorporateDebitStore(),
+    personelDebitStore: new PersonelDebitStore(),
   };
 }

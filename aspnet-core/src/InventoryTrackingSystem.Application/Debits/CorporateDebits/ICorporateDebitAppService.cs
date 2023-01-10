@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventoryTrackingSystem.Debits
+namespace InventoryTrackingSystem.Debits.CorporateDebits
 {
-    public interface IDebitAppService : IAsyncCrudAppService<CorporateDebitDto, int, CorporateDebitDto, CorporateDebitDto, CorporateDebitDto>
+    public interface ICorporateDebitAppService : IAsyncCrudAppService<CorporateDebitDto, int, CorporateDebitDto, CorporateDebitDto, CorporateDebitDto>
     {
     }
 }

@@ -5,6 +5,8 @@ import {
   TagsOutlined,
   AppstoreOutlined,
   DatabaseOutlined,
+  ContainerOutlined,
+  UserAddOutlined,
 } from '@ant-design/icons';
 
 export const userRouter: any = [
@@ -80,6 +82,24 @@ export const appRouters: any = [
     icon: DatabaseOutlined,
     showInMenu: true,
     component: LoadableComponent(() => import('../../scenes/Products')),
+  },
+  {
+    path: '/corporatedebits',
+    permission: '',
+    title: 'Corporate Debits',
+    name: 'corporatedebit',
+    icon: ContainerOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/CorporateDebits')),
+  },
+  {
+    path: '/personeldebits',
+    permission: '',
+    title: 'Personel Debits',
+    name: 'personeldebit',
+    icon: UserAddOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/PersonelDebits')),
   },
   {
     path: '/logout',

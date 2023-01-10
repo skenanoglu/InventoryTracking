@@ -16,6 +16,7 @@ namespace InventoryTrackingSystem.Debits
         public int ProductId { get; set; }
         public int ProductCount { get; set; }
 
+
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
         public long? LastModifierUserId { get; set; }
