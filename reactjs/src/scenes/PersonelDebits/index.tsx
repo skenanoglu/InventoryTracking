@@ -32,6 +32,9 @@ const Search = Input.Search;
 class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebitState> {
   formRef = React.createRef<FormInstance>();
 
+  /**uygulama calisirken o anda mudahale edilen verilerin tabloda anında karsılıgını gormek için yazıldı
+   * kısaca durum yönetimi amaclıdır.
+   */
   state = {
     modalVisible: false,
     maxResultCount: 10,

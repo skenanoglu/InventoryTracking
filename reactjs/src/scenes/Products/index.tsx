@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table } from 'antd';
+import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table, Tag } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -184,7 +184,8 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
         dataIndex: 'count',
         key: 'productCount',
         width: 150,
-        render: (text: string) => <div>{text}</div>,
+        render: (text: number) =>
+          text < 20 ? <Tag color="#cd201f">{text}</Tag> : <Tag color="#55acee">{text}</Tag>,
       },
       {
         title: L('Actions'),

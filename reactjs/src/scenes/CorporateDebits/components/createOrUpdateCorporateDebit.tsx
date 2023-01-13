@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Form, Input, InputNumber, Modal, Select } from 'antd';
 
 import { FormInstance } from 'antd/lib/form';
+import '../index.less';
 import { L } from '../../../lib/abpUtility';
 
 export interface ICreateOrUpdateCorporateDebitProps {
@@ -42,7 +43,8 @@ class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorpor
         onCancel={onCancel}
         onOk={onCreate}
         title={L('CorporateDebits')}
-        width={550}
+        width={700}
+        className={'modalStyle'}
       >
         <Form ref={formRef}>
           <Form.Item label={L('Employee Id')} name={'employeeId'} {...formItemLayout}>

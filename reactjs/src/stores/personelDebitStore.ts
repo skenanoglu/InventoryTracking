@@ -21,6 +21,7 @@ class PersonelDebitStore {
   @action
   async createPersonelDebit() {
     this.PersonelDebitModel = {
+      //default backend'de gönderilecek veriler. Boş bırakılırsa o veri aşağıdaki veriyle dolar.
       id: 0,
       name: '',
       surName: '',
@@ -33,6 +34,7 @@ class PersonelDebitStore {
 
   @action
   async update(updatePersonelDebitInput: UpdatePersonelDebitInput) {
+    /**service katmanında oluşturulan api ya istek atan metod burada çağırılır. */
     let result = await PersonelDebitService.update(updatePersonelDebitInput);
     return result;
     // this.PersonelDebits.items = this.PersonelDebits.items.map((x: GetAllPersonelDebitOutput) => {

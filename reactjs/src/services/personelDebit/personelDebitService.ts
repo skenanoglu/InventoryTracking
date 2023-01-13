@@ -10,11 +10,19 @@ import UpdatePersonelDebitOutput from './dto/updatePersonelDebitOutput';
 import http from '../httpService';
 
 class PersonelDebitService {
+  /**
+   * Kişisel verilmiş zimmetlerin crud işlemlerini barındırır.
+   * backendden gelen create update delete update metodlarını frontendde karşılar ve
+   * tüm proje içerisinde tek bir yerden çağırılmasını sağlar
+   */
   public async create(
-    createPersonelDebitInput: CreatePersonelDebitInput
+    createPersonelDebitInput: CreatePersonelDebitInput //update ederken createdto'ya sadık kalması için tip belirtilit
   ): Promise<CreatePersonelDebitOutput> {
     let result = await http.post('api/services/app/PersonalDebit/Create', createPersonelDebitInput);
-    return result.data.result;
+    /**
+     * Backend'de http içerisinde belirtilen api ya istek atılır. içerisine de metoda gönderilen json verilir.
+     */
+    return result.data.result; //respons ta işimize yarayan veri data --result altında olduğundan boyle döndürüldü.
   }
 
   public async delete(entityDto: EntityDto) {
@@ -44,4 +52,4 @@ class PersonelDebitService {
   }
 }
 
-export default new PersonelDebitService();
+export default new PersonelDebitService(); // Başka classlardan bu isimle erişebilmek için.

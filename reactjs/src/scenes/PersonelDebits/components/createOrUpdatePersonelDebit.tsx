@@ -4,6 +4,7 @@ import { Form, Input, InputNumber, Modal } from 'antd';
 
 import { FormInstance } from 'antd/lib/form';
 import { L } from '../../../lib/abpUtility';
+import '../index.less';
 
 export interface ICreateOrUpdatePersonelDebitProps {
   visible: boolean;
@@ -43,6 +44,7 @@ class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersone
         onOk={onCreate}
         title={L('PersonelDebits')}
         width={550}
+        className={'modalStyle'}
       >
         <Form ref={formRef}>
           <Form.Item label={L('Name')} name={'name'} {...formItemLayout}>
