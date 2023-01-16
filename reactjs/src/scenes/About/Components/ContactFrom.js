@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
-import { Form } from 'antd';
+import { Form, Space } from 'antd';
+import emailjs from '@emailjs/browser';
+
 import {
   Button,
   Cascader,
@@ -19,59 +21,63 @@ import TextArea from 'antd/lib/input/TextArea';
 export const ContactForm = () => {
   const form = useRef();
 
-  const selectAfter = ( //form içerisinde mail girerken sağda default görünecek mail uzantıları
-    <Select defaultValue="@gmail.com"> 
-      <Option value="@gmail.com">@gmail.com</Option>
-      <Option value="@balikesir.edu.tr">@balikesir.edu.tr</Option>
-      <Option value="@hotmail.com">@hotmail.com</Option>
-      <Option value="@yahoo.com">@yahoo.com</Option>
-    </Select>
-  );
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_2keu6pa', 'template_nboma8k', form.current, 'WP9aJzgP0R5YHdyOG')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
+
 
   return (
-    <Form
+<div style={{width:"70%", marginLeft:"150px"}}>
+     <form
     ref={form}
-    labelCol={{ span: 16 }}
-    wrapperCol={{ span: 15 }}
-    layout="horizontal"
-    
-  >   <Form.Item> 
+  >   
+  <Form.Item> 
     <br></br>
     <h1 style={{textAlign:"center"}} >HAKKINDA</h1>  <br></br> 
-    <h4  style={{fontSize:"12px"}} >Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-      when an unknown printer took a galley of type and scrambled it to make a type 
-      specimen book. It has survived not only five centuries, but also the leap into
-       electronic typesetting, remaining essentially unchanged. It was popularised in 
+    <h4  style={{fontSize:"12px"}} >Kurumsal ve kişisel envanter takibi 
+    yapabileceğiniz bir web projesi sunuyoruz. Bu proje ile, ürünlerinizi, stokların
+    ızı ve tüm envanterinizi kolayca takip edebilirsiniz. Ayrıca, ürünlerinizin tarih
+    çesini kaydedebilir, envanterinizi raporlayabilir ve ürünlerinizi kategori bazında s
+    ınıflandırabilirsiniz. Projemiz kullanımı kolay ve ölçeklenebilir, böylece ihtiyaçlarınız 
+    ne olursa olsun, envanterinizi kontrol altında tutabilirsiniz. 
     </h4>
   </Form.Item>   
     <Form.Item>
       <h3 style={{textAlign:"center"}}>BİZİMLE İLETİŞİME GEÇİN</h3>
     </Form.Item>
     <Form.Item>
-      <Select placeholder="İletişime Geçmek İstediğiniz Yöneticiyi Seçin" >
+      <Select placeholder="İletişime Geçmek İstediğiniz Yöneticiyi Seçin">
         <Select.Option value="deneme@gmaiil.com">Cihat Talat Akpınar</Select.Option>
         <Select.Option value="deneme2@gmaiil.com">Şahin Kenanoğlu</Select.Option>
       </Select>
     </Form.Item>
     <Form.Item>
-     <Input placeholder='İsim Soyisim Girin'></Input>
+     <Input placeholder='İsim Soyisim Girin' name="user_name"></Input>
+  </Form.Item>
+  <Form.Item >
+    <Input placeholder='E-mail Adresinizi Girin'  width="large" name="user_email"/>
   </Form.Item>
   <Form.Item>
-    <Input addonAfter={selectAfter} width="large" placeholder="Mail Adresi Girin"/>
-  </Form.Item>
-  <Form.Item>
-  <TextArea rows={4} placeholder="İletmek İstediğiniz Mesajı Girin"/>
+  <TextArea rows={4} placeholder="İletmek İstediğiniz Mesajı Girin" name="message"/>
   </Form.Item>
   <Form.Item>    
   <Col span={24} style={{ textAlign: 'right' }}>
-          <Button type="primary" htmlType="submit" >
+          <Button type="primary" htmlType="submit" onClick={sendEmail}>
             GÖNDER
           </Button> 
           </Col> 
   </Form.Item>
 
-  </Form>
+  </form>
+</div>
+
 
   );
 };
