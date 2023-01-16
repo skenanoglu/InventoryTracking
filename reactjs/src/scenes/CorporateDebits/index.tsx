@@ -27,12 +27,13 @@ export interface ICorporateDebitState {
 const confirm = Modal.confirm;
 const Search = Input.Search;
 
-@inject(Stores.CorporateDebitStore)
+@inject(Stores.CorporateDebitStore) // dependency injection ile storedaki metodlar kullanılıor
 @observer
 class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDebitState> {
-  formRef = React.createRef<FormInstance>();
+  formRef = React.createRef<FormInstance>(); //form rereransı oluşturulur
 
   state = {
+    // çalışma zamanında manipule edilecek olan veriler state management ile kontrol edilir.
     modalVisible: false,
     maxResultCount: 10,
     skipCount: 0,
@@ -41,10 +42,12 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
   };
 
   async componentDidMount() {
+    // uygulama hazır olduğunda çalışacaktır.
     await this.getAll();
   }
 
   async getAll() {
+    // d.i ile corporateDebitStore dan get all ile tüm veriler çağırırlır.
     await this.props.corporateDebitStore.getAll({
       maxResultCount: this.state.maxResultCount,
       skipCount: this.state.skipCount,
@@ -60,20 +63,24 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
   };
 
   Modal = () => {
+    // update ve create modellerinin visible durumunu manipule eder.
     this.setState({
-      modalVisible: !this.state.modalVisible,
+      modalVisible: !this.state.modalVisible, // suanki visible durumunu not işlemiyle tersine cevirir.
     });
   };
 
   async createOrUpdateModalOpen(entityDto: EntityDto) {
+    // create or update modellerine tıklandığındaaynı komponenti cağırır
     if (entityDto.id === 0) {
+      // entitydto class ta 0 isee create amaclı basılmıstır.
       this.props.corporateDebitStore.createCorporateDebit();
     } else {
-      await this.props.corporateDebitStore.get(entityDto);
+      // eğer id boş değilse update işlemidir bu durumda update olduğunu anlıyoruz
+      await this.props.corporateDebitStore.get(entityDto); //store dan update apisini cağırır.
     }
 
-    this.setState({ corporateDebitStore: entityDto.id });
-    this.Modal();
+    this.setState({ corporateDebitStore: entityDto.id }); // id yi state management ile tutar.
+    this.Modal(); // modelin visible durumunu tersler ( true ==> false || false ==> false)
 
     setTimeout(() => {
       if (entityDto.id !== 0) {
@@ -87,8 +94,10 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
   }
 
   delete(input: EntityDto) {
+    //delete butonuna basıldığında calisacak metoddur.
     const self = this;
     confirm({
+      // eğer ok a basıldıysa delete işlemigerçekleşecektir.
       title: 'Do you Want to delete these items?',
       onOk() {
         self.props.corporateDebitStore.delete(input);
@@ -164,7 +173,7 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
           <Button
             shape="round"
             type="primary"
-            onClick={() => this.createOrUpdateModalOpen({ id: item.id })}
+            onClick={() => this.createOrUpdateModalOpen({ id: item.id })} // udpate butonu ile generic model acılır.
             icon={<SettingOutlined />}
           >
             {L('Update')}
@@ -179,7 +188,7 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
             danger
             shape="round"
             type="primary"
-            onClick={() => this.delete({ id: item.id })}
+            onClick={() => this.delete({ id: item.id })} // tıklanan itemin rowundan id otomatik gelir.
             icon={<DeleteOutlined />}
           >
             {L('Delete')}

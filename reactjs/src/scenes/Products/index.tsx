@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table, Tag } from 'antd';
+import { Button, Card, Col, Dropdown, Menu, Modal, Row, Table, Tag } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -25,46 +25,13 @@ export interface IProductState {
 }
 
 const confirm = Modal.confirm;
-const Search = Input.Search;
 
-@inject(Stores.ProductStore)
+@inject(Stores.ProductStore) //dependency injection -- bağımlılıklar sabit olarak kodlanmaz ve ortam değiştikçe değişebileceği anlamına gelir.
 @observer
 class Product extends AppComponentBase<IProductProps, IProductState> {
   formRef = React.createRef<FormInstance>();
-  options = [
-    {
-      value: 'zhejiang',
-      label: 'Zhejiang',
-      children: [
-        {
-          value: 'hangzhou',
-          label: 'Hangzhou',
-          children: [
-            {
-              value: 'xihu',
-              label: 'West Lake',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: 'jiangsu',
-      label: 'Jiangsu',
-      children: [
-        {
-          value: 'nanjing',
-          label: 'Nanjing',
-          children: [
-            {
-              value: 'zhonghuamen',
-              label: 'Zhong Hua Men',
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  //uygulama içerisinde açılır menü içerisinde kullanılacak veriler
+
   state = {
     modalVisible: false,
     maxResultCount: 10,
@@ -74,10 +41,12 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
   };
 
   async componentDidMount() {
+    // ekran hazır olduğunda getall medotunu çağırır store içerisinde veriler model üzerinde canlı hale gelir
     await this.getAll();
   }
 
   async getAll() {
+    // store gidip getall metodunu cağırır. içerisinde formu manipule eden parametreler bulunur.
     await this.props.productStore.getAll({
       maxResultCount: this.state.maxResultCount,
       skipCount: this.state.skipCount,
@@ -93,16 +62,20 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
   };
 
   Modal = () => {
+    // update ve create modellerinin visible durumunu manipule eder.
     this.setState({
-      modalVisible: !this.state.modalVisible,
+      modalVisible: !this.state.modalVisible, // suanki visible durumunu not işlemiyle tersine cevirir.
     });
   };
 
   async createOrUpdateModalOpen(entityDto: EntityDto) {
+    // create or update modellerine tıklandığındaaynı komponenti cağırır
     if (entityDto.id === 0) {
-      this.props.productStore.createProduct();
+      // entitydto class ta 0 isee create amaclı basılmıstır.
+      this.props.productStore.createProduct(); //store dan create apisi cagırılır.
     } else {
-      await this.props.productStore.get(entityDto);
+      // eğer id boş değilse update işlemidir bu durumda update olduğunu anlıyoruz
+      await this.props.productStore.get(entityDto); //store dan update apisini cağırır.
     }
 
     this.setState({ productId: entityDto.id });
@@ -120,13 +93,16 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
   }
 
   delete(input: EntityDto) {
+    //delete butonunun metodudur.
     const self = this;
     confirm({
+      // emin misiniz için pop up açılır.
       title: 'Do you Want to delete these items?',
       onOk() {
+        // eğer ok a basıldıysa delete işlemigerçekleşecektir.
         self.props.productStore.delete(input);
       },
-      onCancel() {},
+      onCancel() {}, //cancel a basılırsa pencere kapanır
     });
   }
 
@@ -142,10 +118,6 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
       this.setState({ modalVisible: false });
       this.formRef.current?.resetFields();
     });
-  };
-
-  handleSearch = (value: string) => {
-    this.setState({ filter: value }, async () => await this.getAll());
   };
 
   public render() {
@@ -170,7 +142,14 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
         dataIndex: 'weight',
         key: 'productWeight',
         width: 150,
-        render: (text: string) => <div>{text}</div>,
+        render: (text: string) =>
+          text === '10+KG' ? (
+            <Tag color="#Be2536">{text}+ **DİKKAT AĞIR YÜK**</Tag>
+          ) : text === '5-10KG' ? (
+            <Tag color="#BE8025">{text}+ **ORTA AĞIRLIK**</Tag>
+          ) : (
+            <Tag color="#25be33">{text}</Tag>
+          ),
       },
       {
         title: L('Description'),
@@ -242,11 +221,7 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
             />
           </Col>
         </Row>
-        <Row>
-          <Col sm={{ span: 10, offset: 0 }}>
-            <Search placeholder={this.L('Filter')} onSearch={this.handleSearch} />
-          </Col>
-        </Row>
+        <Row></Row>
         <Row style={{ marginTop: 20 }}>
           <Col
             xs={{ span: 24, offset: 0 }}

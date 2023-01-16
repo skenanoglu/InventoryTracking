@@ -53,7 +53,10 @@ class Login extends React.Component<ILoginProps> {
           Modal.error({ title: L('Error'), content: L('TenantIsNotActive') });
           break;
         case TenantAvailabilityState.NotFound:
-          Modal.error({ title: L('Error'), content: L('ThereIsNoTenantDefinedWithName{0}', tenancyName) });
+          Modal.error({
+            title: L('Error'),
+            content: L('ThereIsNoTenantDefinedWithName{0}', tenancyName),
+          });
           break;
       }
     }
@@ -74,80 +77,89 @@ class Login extends React.Component<ILoginProps> {
     const { loginModel } = this.props.authenticationStore!;
     return (
       <Form className="" onFinish={this.handleSubmit} ref={this.formRef}>
-          <Row style={{ marginTop: 100 }}>
-            <Col span={8} offset={8}>
-              <Card>
-                <Row>
-                  {!!this.props.sessionStore!.currentLogin.tenant ? (
-                    <Col span={24} offset={0} style={{ textAlign: 'center' }}>
-                      <Button type="link" onClick={loginModel.toggleShowModal}>
-                        {L('CurrentTenant')} : {this.props.sessionStore!.currentLogin.tenant.tenancyName}
-                      </Button>
-                    </Col>
-                  ) : (
-                    <Col span={24} offset={0} style={{ textAlign: 'center' }}>
-                      <Button type="link" onClick={loginModel.toggleShowModal}>
-                        {L('NotSelected')}
-                      </Button>
-                    </Col>
-                  )}
-                </Row>
-              </Card>
-            </Col>
-          </Row>
+        <Row>
+          <br></br>
+          <br></br> <br></br>
+          <br></br> <br></br>
+          <br></br> <br></br>
+        </Row>
+        <Row>
+          <Modal
+            visible={loginModel.showModal}
+            onCancel={loginModel.toggleShowModal}
+            onOk={this.changeTenant}
+            title={L('ChangeTenant')}
+            okText={L('OK')}
+            cancelText={L('Cancel')}
+          >
+            <Row>
+              <Col span={8} offset={8}>
+                <h3>{L('TenancyName')}</h3>
+              </Col>
+              <Col>
+                <FormItem name={'tenancyName'}>
+                  <Input
+                    placeholder={L('TenancyName')}
+                    prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    size="large"
+                  />
+                </FormItem>
+                {!this.formRef.current?.getFieldValue('tenancyName') ? (
+                  <div>{L('LeaveEmptyToSwitchToHost')}</div>
+                ) : (
+                  ''
+                )}
+              </Col>
+            </Row>
+          </Modal>
+        </Row>
+        <Row style={{ marginTop: 10 }}>
+          <Col span={8} offset={8}>
+            <Card>
+              <div style={{ textAlign: 'center' }}>
+                <h3>{L('Kişisel Ve Kurumsal Zimmet Takibi')}</h3>
+              </div>
+              <FormItem name={'userNameOrEmailAddress'} rules={rules.userNameOrEmailAddress}>
+                <Input
+                  placeholder={L('UserNameOrEmail')}
+                  prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  size="large"
+                />
+              </FormItem>
 
-          <Row>
-            <Modal
-              visible={loginModel.showModal}
-              onCancel={loginModel.toggleShowModal}
-              onOk={this.changeTenant}
-              title={L('ChangeTenant')}
-              okText={L('OK')}
-              cancelText={L('Cancel')}
-            >
-              <Row>
-                <Col span={8} offset={8}>
-                  <h3>{L('TenancyName')}</h3>
+              <FormItem name={'password'} rules={rules.password}>
+                <Input
+                  placeholder={L('Password')}
+                  prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  type="password"
+                  size="large"
+                />
+              </FormItem>
+              <Row style={{ margin: '0px 0px 10px 15px ' }}>
+                <Col span={12} offset={0}>
+                  <Checkbox
+                    checked={loginModel.rememberMe}
+                    onChange={loginModel.toggleRememberMe}
+                    style={{ paddingRight: 8 }}
+                  />
+                  {L('RememberMe')}
+                  <br />
+                  <a>{L('ForgotPassword')}</a>
                 </Col>
-                <Col>
-                  <FormItem name={'tenancyName'}>
-                    <Input placeholder={L('TenancyName')} prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} size="large" />
-                  </FormItem>
-                  {!this.formRef.current?.getFieldValue('tenancyName') ? <div>{L('LeaveEmptyToSwitchToHost')}</div> : ''}
+
+                <Col span={8} offset={4}>
+                  <Button
+                    style={{ backgroundColor: '#f5222d', color: 'white' }}
+                    htmlType={'submit'}
+                    danger
+                  >
+                    {L('LogIn')}
+                  </Button>
                 </Col>
               </Row>
-            </Modal>
-          </Row>
-          <Row style={{ marginTop: 10 }}>
-            <Col span={8} offset={8}>
-              <Card>
-                <div style={{ textAlign: 'center' }}>
-                  <h3>{L('WellcomeMessage')}</h3>
-                </div>
-                <FormItem name={'userNameOrEmailAddress'} rules={rules.userNameOrEmailAddress}>
-                  <Input placeholder={L('UserNameOrEmail')} prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} size="large" />
-                </FormItem>
-
-                <FormItem name={'password'} rules={rules.password}>
-                  <Input placeholder={L('Password')} prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" size="large" />
-                </FormItem>
-                <Row style={{ margin: '0px 0px 10px 15px ' }}>
-                  <Col span={12} offset={0}>
-                    <Checkbox checked={loginModel.rememberMe} onChange={loginModel.toggleRememberMe} style={{ paddingRight: 8 }} />
-                    {L('RememberMe')}
-                    <br />
-                    <a>{L('ForgotPassword')}</a>
-                  </Col>
-
-                  <Col span={8} offset={4}>
-                    <Button style={{ backgroundColor: '#f5222d', color: 'white' }} htmlType={'submit'} danger>
-                      {L('LogIn')}
-                    </Button>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-          </Row>
+            </Card>
+          </Col>
+        </Row>
       </Form>
     );
   }
