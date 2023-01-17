@@ -10,7 +10,7 @@ namespace InventoryTrackingSystem.Debits
 {
     public class PersonalDebit : Entity, IFullAudited
     {
-        public string Name { get; set; } // frontendde maplanıp tek gösterilecek
+        public string Name { get; set; }
         public string SurName { get; set; }
         public string Description { get; set; }
         public string TCNO { get; set; }
