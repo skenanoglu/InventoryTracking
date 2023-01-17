@@ -1,33 +1,29 @@
 import React, { useRef } from 'react';
-import { Form, Space } from 'antd';
+import { Form } from 'antd';
 import emailjs from '@emailjs/browser';
 
 import {
   Button,
-  Cascader,
   Col,
-  DatePicker,
   Input,
-  InputNumber,
-  Radio,
-  Row,
   Select,
-  Switch,
-  TreeSelect,
 } from 'antd';
-import { Option } from 'antd/lib/mentions';
 import TextArea from 'antd/lib/input/TextArea';
 
 export const ContactForm = () => {
   const form = useRef();
 
-  const sendEmail = (e) => {
-    e.preventDefault();
+  const sendEmail = (e) => {//butonun click olayını dinler
+    e.preventDefault(); // click olayını biz manupule edeceğimiz için defaultu prevent(önlemek) ediyoruz.
 
+    //mailjs kutuphanesinin mail gönerme metodu çapırılır.
+    //mailjs internet sitesinde mail template olusturuldu ve service user bilgileri alındi.
     emailjs.sendForm('service_2keu6pa', 'template_nboma8k', form.current, 'WP9aJzgP0R5YHdyOG')
       .then((result) => {
+        //başarılıysa console OK yazar
           console.log(result.text);
       }, (error) => {
+        //hata varsa hata nedeni konsola yazılır ÖRN: 3. paramter is not true
           console.log(error.text);
       });
   };
@@ -35,8 +31,8 @@ export const ContactForm = () => {
 
   return (
 <div style={{width:"70%", marginLeft:"150px"}}>
-     <form
-    ref={form}
+     <form //jsx form olusturuldu
+    ref={form} //referansı alıp emailjs ile kullanmak için refereans tutulur.
   >   
   <Form.Item> 
     <br></br>

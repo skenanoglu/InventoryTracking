@@ -25,14 +25,7 @@ class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorpor
         xl: { span: 6 },
         xxl: { span: 6 },
       },
-      wrapperCol: {
-        xs: { span: 18 },
-        sm: { span: 18 },
-        md: { span: 18 },
-        lg: { span: 18 },
-        xl: { span: 18 },
-        xxl: { span: 18 },
-      },
+
     };
 
     const { visible, onCancel, onCreate, formRef } = this.props;
