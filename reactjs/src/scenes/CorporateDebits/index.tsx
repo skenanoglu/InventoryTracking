@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Input, Modal, Row, Table, Tag } from 'antd';
+import { Button, Card, Col, Input, Modal, Row, Table, Tag, message } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -98,8 +98,8 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
     const self = this;
     confirm({
       // eğer ok a basıldıysa delete işlemigerçekleşecektir.
-      title: 'Do you Want to delete these items?',
-      onOk() {
+      title: 'Silmek istediğinize emin misiniz?',
+        onOk() {
         self.props.corporateDebitStore.delete(input);
       },
       onCancel() {},
@@ -110,11 +110,13 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
     this.formRef.current?.validateFields().then(async (values: any) => {
       if (this.state.corporateDebitStore === 0) {
         await this.props.corporateDebitStore.create(values);
+        message.info('Başarıyla Oluşturuldu');
       } else {
         await this.props.corporateDebitStore.update({
           id: this.state.corporateDebitStore,
           ...values,
         });
+        message.info('Başarıyla Güncellendi');
       }
 
       await this.getAll();

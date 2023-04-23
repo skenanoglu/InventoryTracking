@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Dropdown, Menu, Modal, Row, Table, Tag } from 'antd';
+import { Button, Card, Col, Dropdown, Menu, Modal, Row, Table, Tag, message } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -97,7 +97,7 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
     const self = this;
     confirm({
       // emin misiniz için pop up açılır.
-      title: 'Do you Want to delete these items?',
+      title: 'Silmek istediğinize emin misiniz?',
       onOk() {
         // eğer ok a basıldıysa delete işlemigerçekleşecektir.
         self.props.productStore.delete(input);
@@ -110,8 +110,10 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
     this.formRef.current?.validateFields().then(async (values: any) => {
       if (this.state.productId === 0) {
         await this.props.productStore.create(values);
+        message.info('Başarıyla Oluşturuldu');
       } else {
         await this.props.productStore.update({ id: this.state.productId, ...values });
+        message.info('Başarıyla Güncellendi');
       }
 
       await this.getAll();
@@ -144,9 +146,9 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
         width: 150,
         render: (text: string) =>
           text === '10+KG' ? (
-            <Tag color="#Be2536">{text}+ **DİKKAT AĞIR YÜK**</Tag>
+            <Tag color="#Be2536">{text} **DİKKAT AĞIR YÜK**</Tag>
           ) : text === '5-10KG' ? (
-            <Tag color="#BE8025">{text}+ **ORTA AĞIRLIK**</Tag>
+            <Tag color="#BE8025">{text} **ORTA AĞIRLIK**</Tag>
           ) : (
             <Tag color="#25be33">{text}</Tag>
           ),
