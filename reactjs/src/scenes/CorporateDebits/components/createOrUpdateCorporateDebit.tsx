@@ -5,6 +5,7 @@ import { Form, Input, InputNumber, Modal, Select } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import '../index.less';
 import { L } from '../../../lib/abpUtility';
+import ProductStore from '../../../stores/productStore';
 
 export interface ICreateOrUpdateCorporateDebitProps {
   visible: boolean;
@@ -12,9 +13,15 @@ export interface ICreateOrUpdateCorporateDebitProps {
   onCreate: () => Promise<void>;
   onCancel: () => void;
   formRef: React.RefObject<FormInstance>;
+  productStore: ProductStore;
 }
 
 class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorporateDebitProps> {
+
+  async componentDidMount(): Promise<void> {
+    await this.props.productStore.getAll();
+  }
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -27,6 +34,10 @@ class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorpor
       },
 
     };
+
+    const products =()=> {
+      return this.props.productStore.products && this.props.productStore.products.map(x=> {return {label : x.name , value: x.id}})
+    }
 
     const { visible, onCancel, onCreate, formRef } = this.props;
 
@@ -45,7 +56,6 @@ class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorpor
           </Form.Item>
           <Form.Item label={L('Department')} name={'employeeDepartment'} {...formItemLayout}>
             <Select
-              defaultValue="Software Department <3"
               options={[
                 {
                   value: 'Marketing Department',
@@ -78,36 +88,23 @@ class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorpor
               ]}
             />
           </Form.Item>
-          <Form.Item label={L('employee Name')} name={'employeeName'} {...formItemLayout}>
+          <Form.Item label={L('Employee Name')} name={'employeeName'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('product Id')} name={'productId'} {...formItemLayout}>
+          <Form.Item label={L('Product')} name={'productId'} {...formItemLayout}>
             <Select
               style={{ width: 120 }}
-              options={[
-                {
-                  value: '77',
-                  label: '77',
-                },
-                {
-                  value: '66',
-                  label: '66',
-                },
-                {
-                  value: '55',
-                  label: '55',
-                },
-                {
-                  value: '44',
-                  label: '44',
-                },
-              ]}
+              options={products()}
             />
           </Form.Item>
-          <Form.Item label={L('product Count')} name={'productCount'} {...formItemLayout}>
+          <Form.Item label={L('Product Count')} name={'productCount'} {...formItemLayout}>
             <Select
               style={{ width: 120 }}
               options={[
+                {
+                  value: '1',
+                  label: '1',
+                },
                 {
                   value: '2',
                   label: '2',

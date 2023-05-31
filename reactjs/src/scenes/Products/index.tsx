@@ -47,11 +47,7 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
 
   async getAll() {
     // store gidip getall metodunu cağırır. içerisinde formu manipule eden parametreler bulunur.
-    await this.props.productStore.getAll({
-      maxResultCount: this.state.maxResultCount,
-      skipCount: this.state.skipCount,
-      keyword: this.state.filter,
-    });
+    await this.props.productStore.getAll();
   }
 
   handleTableChange = (pagination: any) => {
@@ -125,6 +121,13 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
   public render() {
     const { products } = this.props.productStore;
     const columns = [
+      {
+        title: L('Id'),
+        dataIndex: 'id',
+        key: 'id',
+        width: 150,
+        render: (text: string) => <div>{text}</div>,
+      },
       {
         title: L('Name'),
         dataIndex: 'name',
@@ -238,12 +241,12 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
               bordered={true}
               pagination={{
                 pageSize: this.state.maxResultCount,
-                total: products === undefined ? 0 : products.totalCount,
+                total: products === undefined ? 0 : products.length,
                 defaultCurrent: 1,
               }}
               columns={columns}
               loading={products === undefined ? true : false}
-              dataSource={products === undefined ? [] : products.items}
+              dataSource={products === undefined ? [] : products}
               onChange={this.handleTableChange}
             />
           </Col>

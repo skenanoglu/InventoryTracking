@@ -11,9 +11,11 @@ import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
 import PersonelDebitStore from '../../stores/personelDebitStore';
 import { DeleteOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import ProductStore from '../../stores/productStore';
 
 export interface IPersonelDebitProps {
   personelDebitStore: PersonelDebitStore;
+  productStore: ProductStore;
 }
 
 export interface IPersonelDebitState {
@@ -28,6 +30,7 @@ const confirm = Modal.confirm;
 const Search = Input.Search;
 
 @inject(Stores.PersonelDebitStore)
+@inject(Stores.ProductStore)
 @observer
 class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebitState> {
   formRef = React.createRef<FormInstance>();
@@ -256,6 +259,7 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
           </Col>
         </Row>
         <CreateOrUpdatePersonelDebit
+          productStore={this.props.productStore}
           formRef={this.formRef}
           visible={this.state.modalVisible}
           onCancel={() =>

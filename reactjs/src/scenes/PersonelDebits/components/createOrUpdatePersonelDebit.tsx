@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { Form, Input, InputNumber, Modal } from 'antd';
+import { Form, Input, InputNumber, Modal, Select } from 'antd';
 
 import { FormInstance } from 'antd/lib/form';
 import { L } from '../../../lib/abpUtility';
 import '../index.less';
+import ProductStore from '../../../stores/productStore';
 
 export interface ICreateOrUpdatePersonelDebitProps {
   visible: boolean;
@@ -12,9 +13,15 @@ export interface ICreateOrUpdatePersonelDebitProps {
   onCreate: () => Promise<void>;
   onCancel: () => void;
   formRef: React.RefObject<FormInstance>;
+  productStore: ProductStore;
 }
 
 class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersonelDebitProps> {
+
+  async componentDidMount(): Promise<void> {
+    await this.props.productStore.getAll();
+  }
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -34,6 +41,10 @@ class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersone
         xxl: { span: 18 },
       },
     };
+    
+    const products =()=> {
+      return this.props.productStore.products && this.props.productStore.products.map(x=> {return {label : x.name , value: x.id}})
+    }
 
     const { visible, onCancel, onCreate, formRef } = this.props;
 
@@ -59,9 +70,12 @@ class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersone
           <Form.Item label={L('TC NO')} name={'tcno'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Product Id')} name={'productId'} {...formItemLayout}>
-            <InputNumber />
-          </Form.Item>
+          <Form.Item label={L('Product Name')} name={'productId'} {...formItemLayout}>
+          <Select
+              style={{ width: 120 }}
+              options={products()}
+            />          
+            </Form.Item>
           <Form.Item label={L('Product Count')} name={'productCount'} {...formItemLayout}>
             <InputNumber />
           </Form.Item>

@@ -1,10 +1,7 @@
 import CreateProductInput from './dto/createProductInput';
 import CreateProductOutput from './dto/createProductOutput';
 import { EntityDto } from '../../services/dto/entityDto';
-import { GetAllProductOutput } from './dto/getAllProductOutput';
 import GetProductOutput from './dto/getProductOutput';
-import { PagedResultDto } from '../../services/dto/pagedResultDto';
-import { PagedProductResultRequestDto } from './dto/PagedProductResultRequestDto';
 import UpdateProductInput from './dto/updateProductInput';
 import UpdateProductOutput from './dto/updateProductOutput';
 import http from '../httpService';
@@ -25,12 +22,8 @@ class ProductService {
     return result.data.result;
   }
 
-  public async getAll(
-    pagedFilterAndSortedRequest: PagedProductResultRequestDto
-  ): Promise<PagedResultDto<GetAllProductOutput>> {
-    let result = await http.get('api/services/app/Product/GetAll', {
-      params: pagedFilterAndSortedRequest,
-    });
+  public async getAll() {
+    let result = await http.get('api/services/app/Product/GetAll');
     return result.data.result;
   }
 

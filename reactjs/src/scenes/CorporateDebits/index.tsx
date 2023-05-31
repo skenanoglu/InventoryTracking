@@ -11,9 +11,11 @@ import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
 import CorporateDebitStore from '../../stores/corporateDebitStore';
 import { DeleteOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import ProductStore from '../../stores/productStore';
 
 export interface ICorporateDebitProps {
   corporateDebitStore: CorporateDebitStore;
+  productStore: ProductStore;
 }
 
 export interface ICorporateDebitState {
@@ -28,6 +30,7 @@ const confirm = Modal.confirm;
 const Search = Input.Search;
 
 @inject(Stores.CorporateDebitStore) // dependency injection ile storedaki metodlar kullanılıor
+@inject(Stores.ProductStore) // dependency injection ile storedaki metodlar kullanılıor
 @observer
 class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDebitState> {
   formRef = React.createRef<FormInstance>(); //form rereransı oluşturulur
@@ -258,6 +261,7 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
           </Col>
         </Row>
         <CreateOrUpdateCorporateDebit
+          productStore={this.props.productStore}
           formRef={this.formRef}
           visible={this.state.modalVisible}
           onCancel={() =>
