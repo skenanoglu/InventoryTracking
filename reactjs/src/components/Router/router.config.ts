@@ -8,6 +8,8 @@ import {
   ContainerOutlined,
   UserAddOutlined,
   FormOutlined,
+  ShopOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 
 export const userRouter: any = [
@@ -48,15 +50,15 @@ export const appRouters: any = [
     showInMenu: true,
     component: LoadableComponent(() => import('../../scenes/Dashboard')),
   },
-  // {
-  //   path: '/users',
-  //   permission: 'Pages.Users',
-  //   title: 'Users',
-  //   name: 'user',
-  //   icon: UserOutlined,
-  //   showInMenu: true,
-  //   component: LoadableComponent(() => import('../../scenes/Users')),
-  // },
+  {
+    path: '/users',
+    permission: 'Pages.Users',
+    title: 'Persons',
+    name: 'user',
+    icon: UserOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/Users')),
+  },
   // {
   //   path: '/roles',
   //   permission: 'Pages.Roles',
@@ -75,6 +77,15 @@ export const appRouters: any = [
   //   showInMenu: true,
   //   component: LoadableComponent(() => import('../../scenes/Tenants')),
   // },
+  {
+    path: '/companies',
+    permission: '',
+    title: 'Companies',
+    name: 'company',
+    icon: ShopOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/Companies')),
+  },
   {
     path: '/products',
     permission: '',

@@ -5,6 +5,8 @@ using InventoryTrackingSystem.Authorization.Users;
 using InventoryTrackingSystem.MultiTenancy;
 using System;
 using InventoryTrackingSystem.Debits;
+using InventoryTrackingSystem.Products;
+using InventoryTrackingSystem.Companies;
 
 namespace InventoryTrackingSystem.EntityFrameworkCore
 {
@@ -16,7 +18,8 @@ namespace InventoryTrackingSystem.EntityFrameworkCore
             : base(options)
         {
         }
-        public DbSet<Products.Product> Product { get; set; }
+        public DbSet<Company> Company { get; set; }
+        public DbSet<Product> Product { get; set; }
         public DbSet<CorporateDebit> CorporateDebit { get; set; }
         public DbSet<PersonalDebit> PersonalDebit { get; set; }
 

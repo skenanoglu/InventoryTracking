@@ -50,8 +50,8 @@ export const ContactForm = () => {
           <h4 style={{ fontSize: "12px" }} >Kurumsal ve kişisel envanter takibi
             yapabileceğiniz bir web projesi sunuyoruz. Bu proje ile, ürünlerinizi, stokların
             ızı ve tüm envanterinizi kolayca takip edebilirsiniz. Ayrıca, ürünlerinizin tarih
-            çesini kaydedebilir, envanterinizi raporlayabilir ve ürünlerinizi kategori bazında s
-            ınıflandırabilirsiniz. Projemiz kullanımı kolay ve ölçeklenebilir, böylece ihtiyaçlarınız
+            çesini kaydedebilir, envanterinizi raporlayabilir ve ürünlerinizi kategori bazında
+            sınıflandırabilirsiniz. Projemiz kullanımı kolay ve ölçeklenebilir, böylece ihtiyaçlarınız
             ne olursa olsun, envanterinizi kontrol altında tutabilirsiniz.
           </h4>
         </Form.Item>
@@ -59,9 +59,9 @@ export const ContactForm = () => {
           <h3 style={{ textAlign: "center" }}>BİZİMLE İLETİŞİME GEÇİN</h3>
         </Form.Item>
         <Form.Item>
-          <Select placeholder="İletişime Geçmek İstediğiniz Yöneticiyi Seçin">
-            <Select.Option value="deneme@gmaiil.com">Cihat Talat Akpınar</Select.Option>
-            <Select.Option value="deneme2@gmaiil.com">Şahin Kenanoğlu</Select.Option>
+          <Select defaultValue={1} placeholder="İletişime Geçmek İstediğiniz Yöneticiyi Seçin">
+            <Select.Option value={1}>Şahin Kenanoğlu Yazılım Geliştirici</Select.Option>
+            <Select.Option disabled value={2}>Ayhan İstanbullu / Mentor</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item>

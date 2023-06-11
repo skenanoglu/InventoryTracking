@@ -117,7 +117,7 @@ class Login extends React.Component<ILoginProps> {
           <Col span={8} offset={8}>
             <Card>
               <div style={{ textAlign: 'center' }}>
-                <h3>{L('Kişisel Ve Kurumsal Zimmet Takibi')}</h3>
+                <h3>{L('INVENTO (Kişisel Ve Kurumsal Zimmet Takibi)')}</h3>
               </div>
               <FormItem name={'userNameOrEmailAddress'} rules={rules.userNameOrEmailAddress}>
                 <Input

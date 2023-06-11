@@ -7,6 +7,7 @@ import AccountStore from './accountStore';
 import ProductStore from './productStore';
 import CorporateDebitStore from './corporateDebitStore';
 import PersonelDebitStore from './personelDebitStore';
+import CompanyStore from './companyStore';
 
 export default function initializeStores() {
   return {
@@ -19,5 +20,6 @@ export default function initializeStores() {
     productStore: new ProductStore(),
     corporateDebitStore: new CorporateDebitStore(),
     personelDebitStore: new PersonelDebitStore(),
+    companyStore: new CompanyStore(),
   };
 }

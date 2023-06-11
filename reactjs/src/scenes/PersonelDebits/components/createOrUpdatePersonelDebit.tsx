@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Form, Input, InputNumber, Modal, Select } from 'antd';
 
 import { FormInstance } from 'antd/lib/form';
-import { L } from '../../../lib/abpUtility';
 import '../index.less';
 import ProductStore from '../../../stores/productStore';
 
@@ -53,30 +52,30 @@ class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersone
         visible={visible}
         onCancel={onCancel}
         onOk={onCreate}
-        title={L('PersonelDebits')}
+        title={('PersonelDebits')}
         width={550}
         className={'modalStyle'}
       >
         <Form ref={formRef}>
-          <Form.Item label={L('Name')} name={'name'} {...formItemLayout}>
+          <Form.Item label={('Name')} name={'name'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Surname')} name={'surName'} {...formItemLayout}>
+          <Form.Item label={('Surname')} name={'surName'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Description')} name={'description'} {...formItemLayout}>
+          <Form.Item label={('Description')} name={'description'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('TC NO')} name={'tcno'} {...formItemLayout}>
+          <Form.Item label={('TC NO')} name={'tcno'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Product Name')} name={'productId'} {...formItemLayout}>
+          <Form.Item label={('Product Name')} name={'productId'} {...formItemLayout}>
           <Select
               style={{ width: 120 }}
               options={products()}
             />          
             </Form.Item>
-          <Form.Item label={L('Product Count')} name={'productCount'} {...formItemLayout}>
+          <Form.Item label={('Product Count')} name={'productCount'} {...formItemLayout}>
             <InputNumber />
           </Form.Item>
         </Form>

@@ -8,4 +8,5 @@ export default class Stores {
   static ProductStore: string = 'productStore';
   static CorporateDebitStore: string = 'corporateDebitStore';
   static PersonelDebitStore: string = 'personelDebitStore';
+  static CompanyStore: string = 'companyStore';
 }

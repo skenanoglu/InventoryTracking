@@ -1,60 +1,53 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Input, Modal, Row, Table } from 'antd';
+import { Button, Card, Col, Dropdown, Menu, Modal, Row, Table, message } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
-import CreateOrUpdatePersonelDebit from './components/createOrUpdatePersonelDebit';
+import CreateOrUpdateCompany from './components/createOrUpdateCompany';
 import { EntityDto } from '../../services/dto/entityDto';
+import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
-import PersonelDebitStore from '../../stores/personelDebitStore';
-import { DeleteOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
-import ProductStore from '../../stores/productStore';
+import CompanyStore from '../../stores/companyStore';
+import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 
-export interface IPersonelDebitProps {
-  personelDebitStore: PersonelDebitStore;
-  productStore: ProductStore;
+export interface ICompanyProps {
+  companyStore: CompanyStore;
 }
 
-export interface IPersonelDebitState {
+export interface ICompanyState {
   modalVisible: boolean;
   maxResultCount: number;
   skipCount: number;
-  personelDebitStore: number;
+  companyId: number;
   filter: string;
 }
 
 const confirm = Modal.confirm;
-const Search = Input.Search;
 
-@inject(Stores.PersonelDebitStore)
-@inject(Stores.ProductStore)
+@inject(Stores.CompanyStore) //dependency injection -- bağımlılıklar sabit olarak kodlanmaz ve ortam değiştikçe değişebileceği anlamına gelir.
 @observer
-class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebitState> {
+class Company extends AppComponentBase<ICompanyProps, ICompanyState> {
   formRef = React.createRef<FormInstance>();
+  //uygulama içerisinde açılır menü içerisinde kullanılacak veriler
 
-  /**uygulama calisirken o anda mudahale edilen verilerin tabloda anında karsılıgını gormek için yazıldı
-   * kısaca durum yönetimi amaclıdır.
-   */
   state = {
     modalVisible: false,
     maxResultCount: 10,
     skipCount: 0,
-    personelDebitStore: 0,
+    companyId: 0,
     filter: '',
   };
 
   async componentDidMount() {
+    // ekran hazır olduğunda getall medotunu çağırır store içerisinde veriler model üzerinde canlı hale gelir
     await this.getAll();
   }
 
   async getAll() {
-    await this.props.personelDebitStore.getAll({
-      maxResultCount: this.state.maxResultCount,
-      skipCount: this.state.skipCount,
-      keyword: this.state.filter,
-    });
+    // store gidip getall metodunu cağırır. içerisinde formu manipule eden parametreler bulunur.
+    await this.props.companyStore.getAll();
   }
 
   handleTableChange = (pagination: any) => {
@@ -65,25 +58,29 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
   };
 
   Modal = () => {
+    // update ve create modellerinin visible durumunu manipule eder.
     this.setState({
-      modalVisible: !this.state.modalVisible,
+      modalVisible: !this.state.modalVisible, // suanki visible durumunu not işlemiyle tersine cevirir.
     });
   };
 
   async createOrUpdateModalOpen(entityDto: EntityDto) {
+    // create or update modellerine tıklandığındaaynı komponenti cağırır
     if (entityDto.id === 0) {
-      this.props.personelDebitStore.createPersonelDebit();
+      // entitydto class ta 0 isee create amaclı basılmıstır.
+      this.props.companyStore.createCompany(); //store dan create apisi cagırılır.
     } else {
-      await this.props.personelDebitStore.get(entityDto);
+      // eğer id boş değilse update işlemidir bu durumda update olduğunu anlıyoruz
+      await this.props.companyStore.get(entityDto); //store dan update apisini cağırır.
     }
 
-    this.setState({ personelDebitStore: entityDto.id });
+    this.setState({ companyId: entityDto.id });
     this.Modal();
 
     setTimeout(() => {
       if (entityDto.id !== 0) {
         this.formRef.current?.setFieldsValue({
-          ...this.props.personelDebitStore.PersonelDebitModel,
+          ...this.props.companyStore.companyModel,
         });
       } else {
         this.formRef.current?.resetFields();
@@ -92,25 +89,27 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
   }
 
   delete(input: EntityDto) {
+    //delete butonunun metodudur.
     const self = this;
     confirm({
-      title: 'Do you Want to delete these items?',
+      // emin misiniz için pop up açılır.
+      title: 'Silmek istediğinize emin misiniz?',
       onOk() {
-        self.props.personelDebitStore.delete(input);
+        // eğer ok a basıldıysa delete işlemigerçekleşecektir.
+        self.props.companyStore.delete(input);
       },
-      onCancel() {},
+      onCancel() {}, //cancel a basılırsa pencere kapanır
     });
   }
 
   handleCreate = async () => {
     this.formRef.current?.validateFields().then(async (values: any) => {
-      if (this.state.personelDebitStore === 0) {
-        await this.props.personelDebitStore.create(values);
+      if (this.state.companyId === 0) {
+        await this.props.companyStore.create(values);
+        message.info('Başarıyla Oluşturuldu');
       } else {
-        await this.props.personelDebitStore.update({
-          id: this.state.personelDebitStore,
-          ...values,
-        });
+        await this.props.companyStore.update({ id: this.state.companyId, ...values });
+        message.info('Başarıyla Güncellendi');
       }
 
       await this.getAll();
@@ -119,82 +118,59 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
     });
   };
 
-  handleSearch = (value: string) => {
-    this.setState({ filter: value }, async () => await this.getAll());
-  };
-
   public render() {
-    const { PersonelDebits } = this.props.personelDebitStore;
+    const { companies } = this.props.companyStore;
     const columns = [
       {
-        title: ('Name'),
-        dataIndex: 'name',
-        key: 'name',
+        title: L('Id'),
+        dataIndex: 'id',
+        key: 'id',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('Surname'),
-        dataIndex: 'surName',
-        key: 'surName',
+        title: L('Company Name'),
+        dataIndex: 'companyName',
+        key: 'companyName',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('TC NO'),
-        dataIndex: 'tcno',
-        key: 'tcno',
+        title: L('TaxNo'),
+        dataIndex: 'taxNo',
+        key: 'taxNo',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('Description'),
+        title: L('Description'),
         dataIndex: 'description',
-        key: 'description',
+        key: 'companyDescription',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('Product Id'),
-        dataIndex: 'productId',
-        key: 'productId',
-        width: 150,
-        render: (text: string) => <div>{text}</div>,
-      },
-      {
-        title: ('Product Count'),
-        dataIndex: 'productCount',
-        key: 'productCount',
-        width: 150,
-        render: (text: string) => <div>{text}</div>,
-      },
-      {
-        title: ('Update'),
+        title: L('Actions'),
         width: 150,
         render: (text: string, item: any) => (
-          <Button
-            shape="round"
-            type="primary"
-            onClick={() => this.createOrUpdateModalOpen({ id: item.id })}
-            icon={<SettingOutlined />}
-          >
-            {('Update')}
-          </Button>
-        ),
-      },
-      {
-        title: ('Delete'),
-        width: 150,
-        render: (text: string, item: any) => (
-          <Button
-            danger
-            shape="round"
-            type="primary"
-            onClick={() => this.delete({ id: item.id })}
-            icon={<DeleteOutlined />}
-          >
-            {('Delete')}
-          </Button>
+          <div>
+            <Dropdown
+              trigger={['click']}
+              overlay={
+                <Menu>
+                  <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>
+                    {L('Edit')}
+                  </Menu.Item>
+                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>
+                </Menu>
+              }
+              placement="bottomLeft"
+            >
+              <Button type="primary" icon={<SettingOutlined />}>
+                {L('Actions')}
+              </Button>
+            </Dropdown>
+          </div>
         ),
       },
     ];
@@ -210,7 +186,7 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
             xl={{ span: 2, offset: 0 }}
             xxl={{ span: 2, offset: 0 }}
           >
-            <h2>{('PersonelDebits')}</h2>
+            <h2>{L('Companies')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -228,11 +204,7 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
             />
           </Col>
         </Row>
-        <Row>
-          <Col sm={{ span: 10, offset: 0 }}>
-            <Search placeholder={this.L('Filter')} onSearch={this.handleSearch} />
-          </Col>
-        </Row>
+        <Row></Row>
         <Row style={{ marginTop: 20 }}>
           <Col
             xs={{ span: 24, offset: 0 }}
@@ -247,18 +219,17 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
               bordered={true}
               pagination={{
                 pageSize: this.state.maxResultCount,
-                total: PersonelDebits === undefined ? 0 : PersonelDebits.totalCount,
+                total: companies === undefined ? 0 : companies.length,
                 defaultCurrent: 1,
               }}
               columns={columns}
-              loading={PersonelDebits === undefined ? true : false}
-              dataSource={PersonelDebits === undefined ? [] : PersonelDebits.items}
+              loading={companies === undefined ? true : false}
+              dataSource={companies === undefined ? [] : companies}
               onChange={this.handleTableChange}
             />
           </Col>
         </Row>
-        <CreateOrUpdatePersonelDebit
-          productStore={this.props.productStore}
+        <CreateOrUpdateCompany
           formRef={this.formRef}
           visible={this.state.modalVisible}
           onCancel={() =>
@@ -266,7 +237,7 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
               modalVisible: false,
             })
           }
-          modalType={this.state.personelDebitStore === 0 ? 'edit' : 'create'}
+          modalType={this.state.companyId === 0 ? 'edit' : 'create'}
           onCreate={this.handleCreate}
         />
       </Card>
@@ -274,4 +245,4 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
   }
 }
 
-export default PersonelDebit;
+export default Company;
