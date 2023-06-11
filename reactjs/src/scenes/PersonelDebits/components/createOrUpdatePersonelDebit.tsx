@@ -57,25 +57,25 @@ class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersone
         className={'modalStyle'}
       >
         <Form ref={formRef}>
-          <Form.Item label={('Name')} name={'name'} {...formItemLayout}>
+          <Form.Item label={('İsim')} name={'name'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={('Surname')} name={'surName'} {...formItemLayout}>
+          <Form.Item label={('Soyisim')} name={'surName'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={('Description')} name={'description'} {...formItemLayout}>
+          <Form.Item label={('Açıklama')} name={'description'} {...formItemLayout}>
             <Input />
           </Form.Item>
           <Form.Item label={('TC NO')} name={'tcno'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={('Product Name')} name={'productId'} {...formItemLayout}>
+          <Form.Item label={('Ürün')} name={'productId'} {...formItemLayout}>
           <Select
               style={{ width: 120 }}
               options={products()}
             />          
             </Form.Item>
-          <Form.Item label={('Product Count')} name={'productCount'} {...formItemLayout}>
+          <Form.Item label={('Ürün Sayısı')} name={'productCount'} {...formItemLayout}>
             <InputNumber />
           </Form.Item>
         </Form>

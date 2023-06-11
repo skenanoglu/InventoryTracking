@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table, Tag } from 'antd';
+import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table, Tag, message } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
@@ -11,6 +11,7 @@ import UserStore from '../../stores/userStore';
 import { FormInstance } from 'antd/lib/form';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 
+declare var abp : any;
 export interface IUserProps {
   userStore: UserStore;
 }
@@ -58,6 +59,11 @@ class User extends AppComponentBase<IUserProps, IUserState> {
   };
 
   async createOrUpdateModalOpen(entityDto: EntityDto) {
+
+    if(!this.props.userStore.users.items.find(x=>x.id == abp.session.userId)?.roleNames.includes("ADMIN")){
+       return  message.error("Kullanıcı role yetkiniz bulunmamktadır.")
+    }
+
     if (entityDto.id === 0) {
       await this.props.userStore.createUser();
       await this.props.userStore.getRoles();
@@ -75,8 +81,13 @@ class User extends AppComponentBase<IUserProps, IUserState> {
   }
 
   delete(input: EntityDto) {
+    
+    if(!this.props.userStore.users.items.find(x=>x.id == abp.session.userId)?.roleNames.includes("admin")){
+      return  message.error("Kullanıcı role yetkiniz bulunmamktadır.")
+   }
+
     const self = this;
-    confirm({
+    return confirm({
       title: 'Do you Want to delete these items?',
       onOk() {
         self.props.userStore.delete(input);
@@ -110,18 +121,18 @@ class User extends AppComponentBase<IUserProps, IUserState> {
   public render() {
     const { users } = this.props.userStore;
     const columns = [
-      { title:('UserName'), dataIndex: 'userName', key: 'userName', width: 150, render: (text: string) => <div>{text}</div> },
-      { title:('FullName'), dataIndex: 'name', key: 'name', width: 150, render: (text: string) => <div>{text}</div> },
-      { title:('EmailAddress'), dataIndex: 'emailAddress', key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
+      { title:('Kullanıcı Adı'), dataIndex: 'userName', key: 'userName', width: 150, render: (text: string) => <div>{text}</div> },
+      { title:('İsim'), dataIndex: 'name', key: 'name', width: 150, render: (text: string) => <div>{text}</div> },
+      { title:('Email Adres'), dataIndex: 'emailAddress', key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
       {
-        title:('IsActive'),
+        title:('Aktif Mi?'),
         dataIndex: 'isActive',
         key: 'isActive',
         width: 150,
-        render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{('Yes')}</Tag> : <Tag color="red">{('No')}</Tag>),
+        render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{('Aktif')}</Tag> : <Tag color="red">{('Pasif')}</Tag>),
       },
       {
-        title:('Actions'),
+        title:('Aksiyonlar'),
         width: 150,
         render: (text: string, item: any) => (
           <div>
@@ -129,14 +140,14 @@ class User extends AppComponentBase<IUserProps, IUserState> {
               trigger={['click']}
               overlay={
                 <Menu>
-                  <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{('Edit')}</Menu.Item>
-                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{('Delete')}</Menu.Item>
+                  <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{('Güncelle')}</Menu.Item>
+                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{('Sil')}</Menu.Item>
                 </Menu>
               }
               placement="bottomLeft"
             >
               <Button type="primary" icon={<SettingOutlined />}>
-                {('Actions')}
+              {('Güncelle/Sil')}
               </Button>
             </Dropdown>
           </div>
@@ -156,7 +167,7 @@ class User extends AppComponentBase<IUserProps, IUserState> {
             xxl={{ span: 2, offset: 0 }}
           >
             {' '}
-            <h2>{('Users')}</h2>
+            <h2>{('Kişiler')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}

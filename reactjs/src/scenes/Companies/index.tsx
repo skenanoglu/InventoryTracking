@@ -89,9 +89,10 @@ class Company extends AppComponentBase<ICompanyProps, ICompanyState> {
   }
 
   delete(input: EntityDto) {
+
     //delete butonunun metodudur.
     const self = this;
-    confirm({
+    return confirm({
       // emin misiniz için pop up açılır.
       title: 'Silmek istediğinize emin misiniz?',
       onOk() {
@@ -129,28 +130,28 @@ class Company extends AppComponentBase<ICompanyProps, ICompanyState> {
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Company Name'),
+        title: L('Şirket İsmi'),
         dataIndex: 'companyName',
         key: 'companyName',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('TaxNo'),
+        title: L('Vergi No'),
         dataIndex: 'taxNo',
         key: 'taxNo',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Description'),
+        title: L('Açıklama'),
         dataIndex: 'description',
         key: 'companyDescription',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Actions'),
+        title: L('Aksiyonlar'),
         width: 150,
         render: (text: string, item: any) => (
           <div>
@@ -159,15 +160,15 @@ class Company extends AppComponentBase<ICompanyProps, ICompanyState> {
               overlay={
                 <Menu>
                   <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>
-                    {L('Edit')}
+                    {L('Güncelle')}
                   </Menu.Item>
-                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>
+                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Sil')}</Menu.Item>
                 </Menu>
               }
               placement="bottomLeft"
             >
               <Button type="primary" icon={<SettingOutlined />}>
-                {L('Actions')}
+              {L('Güncelle/Sil')}
               </Button>
             </Dropdown>
           </div>
@@ -186,7 +187,7 @@ class Company extends AppComponentBase<ICompanyProps, ICompanyState> {
             xl={{ span: 2, offset: 0 }}
             xxl={{ span: 2, offset: 0 }}
           >
-            <h2>{L('Companies')}</h2>
+            <h2>{L('Kurumlar')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}

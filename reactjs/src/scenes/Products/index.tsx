@@ -129,21 +129,28 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Name'),
+        title: L('İsim'),
         dataIndex: 'name',
         key: 'productName',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Brand'),
+        title: L('Marka'),
         dataIndex: 'brand',
         key: 'productBrand',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Weight'),
+        title: L('Kapasite'),
+        dataIndex: 'capacity',
+        key: 'capacity',
+        width: 150,
+        render: (text: string) => <div>{text}</div>,
+      },
+      {
+        title: L('Ağırlık'),
         dataIndex: 'weight',
         key: 'productWeight',
         width: 150,
@@ -157,14 +164,14 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
           ),
       },
       {
-        title: L('Description'),
+        title: L('Açıklama'),
         dataIndex: 'description',
         key: 'productDescription',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Count'),
+        title: L('Adet'),
         dataIndex: 'count',
         key: 'productCount',
         width: 150,
@@ -172,7 +179,7 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
           text < 20 ? <Tag color="#cd201f">{text}</Tag> : <Tag color="#55acee">{text}</Tag>,
       },
       {
-        title: L('Actions'),
+        title: L('Aksiyonlar'),
         width: 150,
         render: (text: string, item: any) => (
           <div>
@@ -181,15 +188,15 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
               overlay={
                 <Menu>
                   <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>
-                    {L('Edit')}
+                    {L('Güncelle')}
                   </Menu.Item>
-                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>
+                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Sil')}</Menu.Item>
                 </Menu>
               }
               placement="bottomLeft"
             >
               <Button type="primary" icon={<SettingOutlined />}>
-                {L('Actions')}
+                {L('Güncelle/Sil')}
               </Button>
             </Dropdown>
           </div>

@@ -127,49 +127,49 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
     const { PersonelDebits } = this.props.personelDebitStore;
     const columns = [
       {
-        title: ('Name'),
+        title: ('İsim'),
         dataIndex: 'name',
         key: 'name',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('Surname'),
+        title: ('Soyisim'),
         dataIndex: 'surName',
         key: 'surName',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('TC NO'),
+        title: ('TC Kimlik Numarası'),
         dataIndex: 'tcno',
         key: 'tcno',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('Description'),
+        title: ('Açıklama'),
         dataIndex: 'description',
         key: 'description',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('Product Id'),
+        title: ('Ürün Id'),
         dataIndex: 'productId',
         key: 'productId',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('Product Count'),
+        title: ('Ürün Sayısı'),
         dataIndex: 'productCount',
         key: 'productCount',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('Update'),
+        title: ('Güncelle'),
         width: 150,
         render: (text: string, item: any) => (
           <Button
@@ -178,12 +178,12 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
             onClick={() => this.createOrUpdateModalOpen({ id: item.id })}
             icon={<SettingOutlined />}
           >
-            {('Update')}
+            {('Güncelle')}
           </Button>
         ),
       },
       {
-        title: ('Delete'),
+        title: ('Sil'),
         width: 150,
         render: (text: string, item: any) => (
           <Button
@@ -193,7 +193,7 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
             onClick={() => this.delete({ id: item.id })}
             icon={<DeleteOutlined />}
           >
-            {('Delete')}
+            {('Sil')}
           </Button>
         ),
       },
@@ -210,7 +210,7 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
             xl={{ span: 2, offset: 0 }}
             xxl={{ span: 2, offset: 0 }}
           >
-            <h2>{('PersonelDebits')}</h2>
+            <h2>{('Kişisel Zimmet')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}

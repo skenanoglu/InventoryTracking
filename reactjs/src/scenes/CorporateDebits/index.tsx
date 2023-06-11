@@ -136,7 +136,7 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
     const { CorporateDebits } = this.props.corporateDebitStore;
     const columns = [
       {
-        title: L('Employee Id'),
+        title: L('Çalışan Id'),
         dataIndex: 'employeeId',
         key: 'employeeId',
         width: 150,
@@ -144,35 +144,35 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
       },
 
       {
-        title: L('Employee Name'),
+        title: L('Çalışan İsmi'),
         dataIndex: 'employeeName',
         key: 'employeeName',
         width: 150,
         render: (text: string) => <Tag color="magenta">{text}</Tag>,
       },
       {
-        title: L('Employee Departement'),
+        title: L('Çalışan Departmanı'),
         dataIndex: 'employeeDepartment',
         key: 'employeeDepartment',
         width: 150,
         render: (text: string) => <Tag color="geekblue">{text}</Tag>,
       },
       {
-        title: L('Product Id'),
+        title: L('Ürün Id'),
         dataIndex: 'productId',
         key: 'productId',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Product Count'),
+        title: L('Ürün Sayısı'),
         dataIndex: 'productCount',
         key: 'productCount',
         width: 150,
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Update'),
+        title: L('Güncelle'),
         width: 150,
         render: (text: string, item: any) => (
           <Button
@@ -181,12 +181,12 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
             onClick={() => this.createOrUpdateModalOpen({ id: item.id })} // udpate butonu ile generic model acılır.
             icon={<SettingOutlined />}
           >
-            {L('Update')}
+            {L('Güncelle')}
           </Button>
         ),
       },
       {
-        title: L('Delete'),
+        title: L('Sil'),
         width: 150,
         render: (text: string, item: any) => (
           <Button
@@ -196,7 +196,7 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
             onClick={() => this.delete({ id: item.id })} // tıklanan itemin rowundan id otomatik gelir.
             icon={<DeleteOutlined />}
           >
-            {L('Delete')}
+            {L('Sil')}
           </Button>
         ),
       },
@@ -213,7 +213,7 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
             xl={{ span: 2, offset: 0 }}
             xxl={{ span: 2, offset: 0 }}
           >
-            <h2>{L('CorporateDebits')}</h2>
+            <h2>{L('Kurumsal Zimmet')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}

@@ -45,13 +45,13 @@ class CreateOrUpdateCompany extends React.Component<ICreateOrUpdateCompanyProps>
         width={550}
       >
         <Form ref={formRef}>
-          <Form.Item label={L('Company Name')} name={'companyName'} {...formItemLayout}>
+          <Form.Item label={L('Şirket İsmi')} name={'companyName'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Tax No')} name={'taxNo'} {...formItemLayout}>
+          <Form.Item label={L('Vergi No')} name={'taxNo'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Description')} name={'description'} {...formItemLayout}>
+          <Form.Item label={L('Açıklama')} name={'description'} {...formItemLayout}>
             <Input />
           </Form.Item>
           {/* <Form.Item

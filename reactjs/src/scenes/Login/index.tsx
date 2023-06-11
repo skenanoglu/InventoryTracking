@@ -1,8 +1,9 @@
 import './index.less';
 
 import * as React from 'react';
+import Logo from '../../images/logo.png';
 
-import { Button, Card, Checkbox, Col, Form, Input, Modal, Row } from 'antd';
+import { Avatar, Button, Card, Checkbox, Col, Form, Input, Modal, Row } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { inject, observer } from 'mobx-react';
 
@@ -116,6 +117,9 @@ class Login extends React.Component<ILoginProps> {
         <Row style={{ marginTop: 10 }}>
           <Col span={8} offset={8}>
             <Card>
+              <Col style={{ textAlign: 'center', marginTop: 15, marginBottom: 10 }}>
+                <Avatar shape="square" style={{ height: 100, width: 250 }} src={Logo} />
+              </Col>
               <div style={{ textAlign: 'center' }}>
                 <h3>{L('INVENTO (Kişisel Ve Kurumsal Zimmet Takibi)')}</h3>
               </div>
@@ -144,7 +148,7 @@ class Login extends React.Component<ILoginProps> {
                   />
                   {L('RememberMe')}
                   <br />
-                  <a>{L('ForgotPassword')}</a>
+                  <a>{L('Şifremi Unuttum')}</a>
                 </Col>
 
                 <Col span={8} offset={4}>

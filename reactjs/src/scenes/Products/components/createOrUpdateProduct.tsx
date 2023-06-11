@@ -45,16 +45,16 @@ class CreateOrUpdateProduct extends React.Component<ICreateOrUpdateProductProps>
         width={550}
       >
         <Form ref={formRef}>
-          <Form.Item label={L('Name')} name={'name'} {...formItemLayout}>
+          <Form.Item label={L('İsim')} name={'name'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Brand')} name={'brand'} {...formItemLayout}>
+          <Form.Item label={L('Marka')} name={'brand'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Capacity')} name={'capacity'} {...formItemLayout}>
+          <Form.Item label={L('Kapasite')} name={'capacity'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Weight')} name={'weight'} {...formItemLayout}>
+          <Form.Item label={L('Ağırlık')} name={'weight'} {...formItemLayout}>
             <Select
               defaultValue="0-1KG"
               style={{ width: 120 }}
@@ -78,10 +78,10 @@ class CreateOrUpdateProduct extends React.Component<ICreateOrUpdateProductProps>
               ]}
             />
           </Form.Item>
-          <Form.Item label={L('Description')} name={'description'} {...formItemLayout}>
+          <Form.Item label={L('Açıklama')} name={'description'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Count')} name={'count'} {...formItemLayout}>
+          <Form.Item label={L('Adet')} name={'count'} {...formItemLayout}>
             <Input />
           </Form.Item>
           {/* <Form.Item

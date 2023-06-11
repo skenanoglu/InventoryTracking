@@ -10,6 +10,7 @@ import {
   FormOutlined,
   ShopOutlined,
   UserOutlined,
+  TagsOutlined,
 } from '@ant-design/icons';
 
 export const userRouter: any = [
@@ -45,7 +46,7 @@ export const appRouters: any = [
     path: '/dashboard',
     name: 'dashboard',
     permission: '',
-    title: 'Dashboard',
+    title: 'Ana Ekran',
     icon: HomeOutlined,
     showInMenu: true,
     component: LoadableComponent(() => import('../../scenes/Dashboard')),
@@ -53,21 +54,21 @@ export const appRouters: any = [
   {
     path: '/users',
     permission: 'Pages.Users',
-    title: 'Persons',
+    title: 'Kişiler',
     name: 'user',
     icon: UserOutlined,
     showInMenu: true,
     component: LoadableComponent(() => import('../../scenes/Users')),
   },
-  // {
-  //   path: '/roles',
-  //   permission: 'Pages.Roles',
-  //   title: 'Roles',
-  //   name: 'role',
-  //   icon: TagsOutlined,
-  //   showInMenu: true,
-  //   component: LoadableComponent(() => import('../../scenes/Roles')),
-  // },
+  {
+    path: '/roles',
+    permission: 'Pages.Roles',
+    title: 'Roller',
+    name: 'role',
+    icon: TagsOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/Roles')),
+  },
   // {
   //   path: '/tenants',
   //   permission: 'Pages.Tenants',
@@ -79,8 +80,8 @@ export const appRouters: any = [
   // },
   {
     path: '/companies',
-    permission: '',
-    title: 'Companies',
+    permission: 'Pages.Companies',
+    title: 'Kurumlar',
     name: 'company',
     icon: ShopOutlined,
     showInMenu: true,
@@ -88,8 +89,8 @@ export const appRouters: any = [
   },
   {
     path: '/products',
-    permission: '',
-    title: 'Products',
+    permission: 'Pages.Products',
+    title: 'Ürünler',
     name: 'product',
     icon: DatabaseOutlined,
     showInMenu: true,
@@ -97,8 +98,8 @@ export const appRouters: any = [
   },
   {
     path: '/corporatedebits',
-    permission: '',
-    title: 'Corporate Debits',
+    permission: 'Pages.CorporateDebits',
+    title: 'Kurumsal Zimmet',
     name: 'corporatedebit',
     icon: ContainerOutlined,
     showInMenu: true,
@@ -106,8 +107,8 @@ export const appRouters: any = [
   },
   {
     path: '/personeldebits',
-    permission: '',
-    title: 'Personel Debits',
+    permission: 'Pages.PersonalDebits',
+    title: 'Kişisel Zimmet',
     name: 'personeldebit',
     icon: UserAddOutlined,
     showInMenu: true,
@@ -116,7 +117,7 @@ export const appRouters: any = [
   {
     path: '/about',
     permission: '',
-    title: 'About and Suggestions',
+    title: 'Hakkında ve Öneriler',
     name: 'aboutscreen',
     showInMenu: true,
     icon: FormOutlined,

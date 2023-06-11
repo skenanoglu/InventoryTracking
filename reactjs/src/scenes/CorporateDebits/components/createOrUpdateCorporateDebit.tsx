@@ -51,10 +51,10 @@ class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorpor
         className={'modalStyle'}
       >
         <Form ref={formRef}>
-          <Form.Item label={L('Employee Id')} name={'employeeId'} {...formItemLayout}>
+          <Form.Item label={L('Çalışan Id')} name={'employeeId'} {...formItemLayout}>
             <InputNumber />
           </Form.Item>
-          <Form.Item label={L('Department')} name={'employeeDepartment'} {...formItemLayout}>
+          <Form.Item label={L('Departman')} name={'employeeDepartment'} {...formItemLayout}>
             <Select
               options={[
                 {
@@ -88,16 +88,16 @@ class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorpor
               ]}
             />
           </Form.Item>
-          <Form.Item label={L('Employee Name')} name={'employeeName'} {...formItemLayout}>
+          <Form.Item label={L('Çalışan İsmi')} name={'employeeName'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Product')} name={'productId'} {...formItemLayout}>
+          <Form.Item label={L('Ürün')} name={'productId'} {...formItemLayout}>
             <Select
               style={{ width: 120 }}
               options={products()}
             />
           </Form.Item>
-          <Form.Item label={L('Product Count')} name={'productCount'} {...formItemLayout}>
+          <Form.Item label={L('Ürün Sayısı')} name={'productCount'} {...formItemLayout}>
             <Select
               style={{ width: 120 }}
               options={[
