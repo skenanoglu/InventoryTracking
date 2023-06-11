@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using InventoryTrackingSystem.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace InventoryTrackingSystem.Debits
         public string TCNO { get; set; }
         public int ProductId { get; set; }
         public int ProductCount { get; set; }
+
+        public virtual Product Product { get; set; }
 
         public long? CreatorUserId { get ; set; }
         public DateTime CreationTime { get; set; }

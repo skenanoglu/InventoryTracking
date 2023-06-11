@@ -15,7 +15,8 @@ namespace InventoryTrackingSystem.Products
         public string Capacity { get; set; }
         public string Weight { get; set; }
         public string Description { get; set; }
-        public int Count { get; set; }
+        public int TotalCount { get; set; }
+        public int CountInDebit { get; set; }
 
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }

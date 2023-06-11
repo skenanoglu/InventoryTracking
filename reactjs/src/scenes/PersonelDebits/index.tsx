@@ -12,6 +12,7 @@ import PersonelDebitStore from '../../stores/personelDebitStore';
 import { DeleteOutlined, DownloadOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import ProductStore from '../../stores/productStore';
 import { CSVLink } from 'react-csv';
+import { L } from '../../lib/abpUtility';
 
 export interface IPersonelDebitProps {
   personelDebitStore: PersonelDebitStore;
@@ -159,19 +160,26 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
         title: ('Ürün Id'),
         dataIndex: 'productId',
         key: 'productId',
-        width: 150,
+        width: 100,
         render: (text: string) => <div>{text}</div>,
+      },
+      {
+        title: L('Ürün İsmi'),
+        dataIndex: "product",
+        key: 'product',
+        width: 150,
+        render: (text: any) => <div>{text.name}</div>,
       },
       {
         title: ('Ürün Sayısı'),
         dataIndex: 'productCount',
         key: 'productCount',
-        width: 150,
+        width: 100,
         render: (text: string) => <div>{text}</div>,
       },
       {
         title:('Aksiyonlar'),
-        width: 150,
+        width: 250,
         render: (text: string, item: any) => (
           <div>
             <Row gutter={16}>

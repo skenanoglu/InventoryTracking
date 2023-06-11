@@ -25,7 +25,8 @@ class ProductStore {
       capacity: '',
       weight: '',
       description: '',
-      count: 0,
+      totalCount: 0,
+      countInDebit : 0,
     };
   }
 

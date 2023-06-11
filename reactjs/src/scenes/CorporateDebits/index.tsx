@@ -135,6 +135,7 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
 
   public render() {
     const { CorporateDebits } = this.props.corporateDebitStore;
+    
     const columns = [
       {
         title: L('Çalışan Id'),
@@ -164,17 +165,24 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
         key: 'productId',
         width: 150,
         render: (text: string) => <div>{text}</div>,
+      },      
+      {
+        title: L('Ürün İsmi'),
+        dataIndex: "product",
+        key: 'product',
+        width: 150,
+        render: (text: any) => <div>{text.name}</div>,
       },
       {
         title: L('Ürün Sayısı'),
         dataIndex: 'productCount',
         key: 'productCount',
-        width: 150,
+        width: 100,
         render: (text: string) => <div>{text}</div>,
       },
       {
         title:('Aksiyonlar'),
-        width: 150,
+        width: 200,
         render: (text: string, item: any) => (
           <div>
             <Row gutter={16}>

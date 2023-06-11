@@ -5,5 +5,6 @@ export default class GetProductOutput {
   capacity!: string;
   weight!: string;
   description!: string;
-  count!: number;
+  totalCount!: number;
+  countInDebit!: number;
 }

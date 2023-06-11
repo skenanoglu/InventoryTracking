@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using InventoryTrackingSystem.Debits;
+using InventoryTrackingSystem.Products;
 
 namespace InventoryTrackingSystem.Debits.Dto
 {
@@ -14,6 +15,8 @@ namespace InventoryTrackingSystem.Debits.Dto
         public string TCNO { get; set; }
         public int ProductId { get; set; }
         public int ProductCount { get; set; }
+
+        public virtual Product Product { get; set; }
     }
 }
 

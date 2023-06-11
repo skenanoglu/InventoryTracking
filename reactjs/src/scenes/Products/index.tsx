@@ -172,12 +172,19 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Adet'),
-        dataIndex: 'count',
-        key: 'productCount',
+        title: L('Depodaki Adet'),
+        dataIndex: 'totalCount',
+        key: 'totalCount',
         width: 70,
         render: (text: number) =>
           text < 20 ? <Tag color="#cd201f">{text}</Tag> : <Tag color="#55acee">{text}</Tag>,
+      },      
+      {
+        title: L('Zimmet Verilen Adet'),
+        dataIndex: 'countInDebit',
+        key: 'countInDebit',
+        width: 70,
+        render: (text: number) =><Tag color="#55acee">{text}</Tag>,
       },
       {
         title:('Aksiyonlar'),

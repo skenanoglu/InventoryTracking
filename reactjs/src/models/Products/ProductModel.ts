@@ -5,7 +5,8 @@ class ProductModel {
   capacity!: string;
   weight!: string;
   description!: string;
-  count!: number;
+  totalCount!: number;
+  countInDebit!: number;
 }
 
 export default ProductModel;

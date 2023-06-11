@@ -5,5 +5,6 @@ export default interface UpdateProductOutput {
   capacity: string;
   weight: string;
   description: string;
-  count: number;
+  totalCount: number;
+  countInDebit: number;
 }

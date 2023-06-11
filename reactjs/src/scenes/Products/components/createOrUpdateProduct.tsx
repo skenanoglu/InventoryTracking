@@ -81,7 +81,10 @@ class CreateOrUpdateProduct extends React.Component<ICreateOrUpdateProductProps>
           <Form.Item label={L('Açıklama')} name={'description'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Adet')} name={'count'} {...formItemLayout}>
+          <Form.Item label={L('Adet')} name={'totalCount'} {...formItemLayout}>
+            <Input />
+          </Form.Item>          
+          <Form.Item label={L('Adet')} name={'countInDebit'} {...formItemLayout}>
             <Input />
           </Form.Item>
           {/* <Form.Item
