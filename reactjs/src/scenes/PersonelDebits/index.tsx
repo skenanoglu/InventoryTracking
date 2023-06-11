@@ -205,21 +205,12 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
                         CSV Olarak Dışa Aktar
                       </CSVLink>
                     </Menu.Item>
-                    <Menu.Item>
-                    <CSVLink
-                        filename={"personalDebits.pdf"}
-                        data={PersonelDebits === undefined ? [] : PersonelDebits.items}
-                        className="btn btn-primary"
-                      >
-                        PDF Olarak Dışa Aktar
-                      </CSVLink>
-                    </Menu.Item>
                   </Menu>
                 }
                 placement="bottomLeft"
               >
                 <Button type="primary" icon={<DownloadOutlined />}>
-                {('Dışarı Aktar')}
+                {('Dışa Aktar')}
                 </Button>
               </Dropdown>
               </Col>

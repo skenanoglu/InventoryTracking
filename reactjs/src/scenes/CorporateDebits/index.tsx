@@ -208,21 +208,12 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
                         CSV Olarak Dışa Aktar
                       </CSVLink>
                     </Menu.Item>
-                    <Menu.Item>
-                    <CSVLink
-                        filename={"TableContent.pdf"}
-                        data={CorporateDebits === undefined ? [] : CorporateDebits.items}
-                        className="btn btn-primary"
-                      >
-                        PDF Olarak Dışa Aktar
-                      </CSVLink>
-                    </Menu.Item>
                   </Menu>
                 }
                 placement="bottomLeft"
               >
                 <Button type="primary" icon={<DownloadOutlined />}>
-                {('Dışarı Aktar')}
+                {('Dışa Aktar')}
                 </Button>
               </Dropdown>
               </Col>

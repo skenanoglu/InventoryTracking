@@ -152,21 +152,12 @@ class Role extends AppComponentBase<IRoleProps, IRoleState> {
                         CSV Olarak Dışa Aktar
                       </CSVLink>
                     </Menu.Item>
-                    <Menu.Item>
-                    <CSVLink
-                        filename={"roles.pdf"}
-                        data={roles === undefined ? [] : roles.items}
-                        className="btn btn-primary"
-                      >
-                        PDF Olarak Dışa Aktar
-                      </CSVLink>
-                    </Menu.Item>
                   </Menu>
                 }
                 placement="bottomLeft"
               >
                 <Button type="primary" icon={<DownloadOutlined />}>
-                {('Dışarı Aktar')}
+                {('Dışa Aktar')}
                 </Button>
               </Dropdown>
               </Col>

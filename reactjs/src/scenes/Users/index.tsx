@@ -168,14 +168,12 @@ class User extends AppComponentBase<IUserProps, IUserState> {
                         CSV Olarak Dışa Aktar
                       </CSVLink>
                     </Menu.Item>
-                    <Menu.Item>
-                    </Menu.Item>
                   </Menu>
                 }
                 placement="bottomLeft"
               >
                 <Button type="primary" icon={<DownloadOutlined />}>
-                {('Dışarı Aktar')}
+                {('Dışa Aktar')}
                 </Button>
               </Dropdown>
               </Col>
