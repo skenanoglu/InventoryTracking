@@ -1571,6 +1571,13 @@
   "resolved" "https://registry.npmjs.org/@types/q/-/q-1.5.4.tgz"
   "version" "1.5.4"
 
+"@types/react-csv@^1.1.3":
+  "integrity" "sha512-dkEdyRvRpygSnNg4cyzYWSUjukIQ5lAtXJwc7BqyUfzww/Cv2dcAFGYd+sWTFpGiDNZMVPp6vVPLcAPvJID8Kg=="
+  "resolved" "https://registry.npmjs.org/@types/react-csv/-/react-csv-1.1.3.tgz"
+  "version" "1.1.3"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-document-title@^2.0.3":
   "integrity" "sha512-Gq7zbJ44bvHQx6WzGwRaoG4bV9hlX1giKkgaa3IAUp9+4KXPgEAG6ukAS5I1+rpwjzBypkNBF6sZ7qlAitSjgA=="
   "resolved" "https://registry.npmjs.org/@types/react-document-title/-/react-document-title-2.0.4.tgz"
