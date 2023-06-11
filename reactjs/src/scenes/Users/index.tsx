@@ -9,7 +9,8 @@ import { EntityDto } from '../../services/dto/entityDto';
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
 import { FormInstance } from 'antd/lib/form';
-import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DownloadOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { CSVLink } from 'react-csv';
 
 declare var abp : any;
 export interface IUserProps {
@@ -82,13 +83,13 @@ class User extends AppComponentBase<IUserProps, IUserState> {
 
   delete(input: EntityDto) {
     
-    if(!this.props.userStore.users.items.find(x=>x.id == abp.session.userId)?.roleNames.includes("admin")){
+    if(!this.props.userStore.users.items.find(x=>x.id == abp.session.userId)?.roleNames.includes("ADMIN")){
       return  message.error("Kullanıcı role yetkiniz bulunmamktadır.")
    }
 
     const self = this;
     return confirm({
-      title: 'Do you Want to delete these items?',
+      title: 'Silmek istediğinize emin misiniz?',
       onOk() {
         self.props.userStore.delete(input);
       },
@@ -121,35 +122,64 @@ class User extends AppComponentBase<IUserProps, IUserState> {
   public render() {
     const { users } = this.props.userStore;
     const columns = [
-      { title:('Kullanıcı Adı'), dataIndex: 'userName', key: 'userName', width: 150, render: (text: string) => <div>{text}</div> },
-      { title:('İsim'), dataIndex: 'name', key: 'name', width: 150, render: (text: string) => <div>{text}</div> },
-      { title:('Email Adres'), dataIndex: 'emailAddress', key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
+      { title:'Kullanıcı Adı', dataIndex: 'userName', key: 'userName', width: 150, render: (text: string) => <div>{text}</div> },
+      { title:'İsim', dataIndex: 'name', key: 'name', width: 150, render: (text: string) => <div>{text}</div> },
+      { title:'Email Adres', dataIndex: 'emailAddress', key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
       {
-        title:('Aktif Mi?'),
+        title:'Aktif Mi?',
         dataIndex: 'isActive',
         key: 'isActive',
         width: 150,
         render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{('Aktif')}</Tag> : <Tag color="red">{('Pasif')}</Tag>),
       },
       {
-        title:('Aksiyonlar'),
+        title: 'Aksiyonlar',
         width: 150,
         render: (text: string, item: any) => (
           <div>
-            <Dropdown
-              trigger={['click']}
-              overlay={
-                <Menu>
-                  <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{('Güncelle')}</Menu.Item>
-                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{('Sil')}</Menu.Item>
-                </Menu>
-              }
-              placement="bottomLeft"
-            >
-              <Button type="primary" icon={<SettingOutlined />}>
-              {('Güncelle/Sil')}
-              </Button>
-            </Dropdown>
+            <Row gutter={16}>
+              <Col> 
+              <Dropdown
+                trigger={['click']}
+                overlay={
+                  <Menu>
+                    <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{('Güncelle')}</Menu.Item>
+                    <Menu.Item onClick={() => this.delete({ id: item.id })}>{ <><DeleteOutlined/> Sil </>}</Menu.Item>
+                  </Menu>
+                }
+                placement="bottomLeft"
+              >
+                <Button type="primary" icon={<SettingOutlined />}>
+                {('Güncelle/Sil')}
+                </Button>
+              </Dropdown>
+              </Col>
+              <Col>
+              <Dropdown
+                trigger={['click']}
+                overlay={
+                  <Menu>
+                    <Menu.Item>
+                      <CSVLink
+                        filename={"users.csv"}
+                        data={users === undefined ? [] : users.items}
+                        className="btn btn-primary"
+                      >
+                        CSV Olarak Dışa Aktar
+                      </CSVLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                    </Menu.Item>
+                  </Menu>
+                }
+                placement="bottomLeft"
+              >
+                <Button type="primary" icon={<DownloadOutlined />}>
+                {('Dışarı Aktar')}
+                </Button>
+              </Dropdown>
+              </Col>
+          </Row>
           </div>
         ),
       },

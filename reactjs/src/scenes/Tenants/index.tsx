@@ -82,7 +82,7 @@ class Tenant extends AppComponentBase<ITenantProps, ITenantState> {
   delete(input: EntityDto) {
     const self = this;
     confirm({
-      title: 'Do you Want to delete these items?',
+      title: 'Silmek istediğinize emin misiniz?',
       onOk() {
         self.props.tenantStore.delete(input);
       },

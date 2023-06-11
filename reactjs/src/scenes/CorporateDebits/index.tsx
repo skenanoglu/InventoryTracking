@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Input, Modal, Row, Table, Tag, message } from 'antd';
+import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table, Tag, message } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -10,8 +10,9 @@ import { EntityDto } from '../../services/dto/entityDto';
 import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
 import CorporateDebitStore from '../../stores/corporateDebitStore';
-import { DeleteOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DownloadOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import ProductStore from '../../stores/productStore';
+import { CSVLink } from 'react-csv';
 
 export interface ICorporateDebitProps {
   corporateDebitStore: CorporateDebitStore;
@@ -172,32 +173,61 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: L('Güncelle'),
+        title:('Aksiyonlar'),
         width: 150,
         render: (text: string, item: any) => (
-          <Button
-            shape="round"
-            type="primary"
-            onClick={() => this.createOrUpdateModalOpen({ id: item.id })} // udpate butonu ile generic model acılır.
-            icon={<SettingOutlined />}
-          >
-            {L('Güncelle')}
-          </Button>
-        ),
-      },
-      {
-        title: L('Sil'),
-        width: 150,
-        render: (text: string, item: any) => (
-          <Button
-            danger
-            shape="round"
-            type="primary"
-            onClick={() => this.delete({ id: item.id })} // tıklanan itemin rowundan id otomatik gelir.
-            icon={<DeleteOutlined />}
-          >
-            {L('Sil')}
-          </Button>
+          <div>
+            <Row gutter={16}>
+              <Col> 
+              <Dropdown
+                trigger={['click']}
+                overlay={
+                  <Menu>
+                    <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{('Güncelle')}</Menu.Item>
+                    <Menu.Item onClick={() => this.delete({ id: item.id })}>{ <><DeleteOutlined/> Sil </>}</Menu.Item>
+                  </Menu>
+                }
+                placement="bottomLeft"
+              >
+                <Button type="primary" icon={<SettingOutlined />}>
+                {('Güncelle/Sil')}
+                </Button>
+              </Dropdown>
+              </Col>
+              <Col>
+              <Dropdown
+                trigger={['click']}
+                overlay={
+                  <Menu>
+                    <Menu.Item>
+                      <CSVLink
+                        filename={"corporateDebits.csv"}
+                        data={CorporateDebits === undefined ? [] : CorporateDebits.items}
+                        className="btn btn-primary"
+                      >
+                        CSV Olarak Dışa Aktar
+                      </CSVLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                    <CSVLink
+                        filename={"TableContent.pdf"}
+                        data={CorporateDebits === undefined ? [] : CorporateDebits.items}
+                        className="btn btn-primary"
+                      >
+                        PDF Olarak Dışa Aktar
+                      </CSVLink>
+                    </Menu.Item>
+                  </Menu>
+                }
+                placement="bottomLeft"
+              >
+                <Button type="primary" icon={<DownloadOutlined />}>
+                {('Dışarı Aktar')}
+                </Button>
+              </Dropdown>
+              </Col>
+          </Row>
+          </div>
         ),
       },
     ];

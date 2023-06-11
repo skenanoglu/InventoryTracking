@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Input, Modal, Row, Table } from 'antd';
+import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -9,8 +9,9 @@ import CreateOrUpdatePersonelDebit from './components/createOrUpdatePersonelDebi
 import { EntityDto } from '../../services/dto/entityDto';
 import Stores from '../../stores/storeIdentifier';
 import PersonelDebitStore from '../../stores/personelDebitStore';
-import { DeleteOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DownloadOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import ProductStore from '../../stores/productStore';
+import { CSVLink } from 'react-csv';
 
 export interface IPersonelDebitProps {
   personelDebitStore: PersonelDebitStore;
@@ -94,7 +95,7 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
   delete(input: EntityDto) {
     const self = this;
     confirm({
-      title: 'Do you Want to delete these items?',
+      title: 'Silmek istediğinize emin misiniz?',
       onOk() {
         self.props.personelDebitStore.delete(input);
       },
@@ -169,32 +170,61 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
         render: (text: string) => <div>{text}</div>,
       },
       {
-        title: ('Güncelle'),
+        title:('Aksiyonlar'),
         width: 150,
         render: (text: string, item: any) => (
-          <Button
-            shape="round"
-            type="primary"
-            onClick={() => this.createOrUpdateModalOpen({ id: item.id })}
-            icon={<SettingOutlined />}
-          >
-            {('Güncelle')}
-          </Button>
-        ),
-      },
-      {
-        title: ('Sil'),
-        width: 150,
-        render: (text: string, item: any) => (
-          <Button
-            danger
-            shape="round"
-            type="primary"
-            onClick={() => this.delete({ id: item.id })}
-            icon={<DeleteOutlined />}
-          >
-            {('Sil')}
-          </Button>
+          <div>
+            <Row gutter={16}>
+              <Col> 
+              <Dropdown
+                trigger={['click']}
+                overlay={
+                  <Menu>
+                    <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{('Güncelle')}</Menu.Item>
+                    <Menu.Item onClick={() => this.delete({ id: item.id })}>{ <><DeleteOutlined/> Sil </>}</Menu.Item>
+                  </Menu>
+                }
+                placement="bottomLeft"
+              >
+                <Button type="primary" icon={<SettingOutlined />}>
+                {('Güncelle/Sil')}
+                </Button>
+              </Dropdown>
+              </Col>
+              <Col>
+              <Dropdown
+                trigger={['click']}
+                overlay={
+                  <Menu>
+                    <Menu.Item>
+                      <CSVLink
+                        filename={"TableContent.csv"}
+                        data={ PersonelDebits === undefined ? [] : PersonelDebits.items}
+                        className="btn btn-primary"
+                      >
+                        CSV Olarak Dışa Aktar
+                      </CSVLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                    <CSVLink
+                        filename={"personalDebits.pdf"}
+                        data={PersonelDebits === undefined ? [] : PersonelDebits.items}
+                        className="btn btn-primary"
+                      >
+                        PDF Olarak Dışa Aktar
+                      </CSVLink>
+                    </Menu.Item>
+                  </Menu>
+                }
+                placement="bottomLeft"
+              >
+                <Button type="primary" icon={<DownloadOutlined />}>
+                {('Dışarı Aktar')}
+                </Button>
+              </Dropdown>
+              </Col>
+          </Row>
+          </div>
         ),
       },
     ];

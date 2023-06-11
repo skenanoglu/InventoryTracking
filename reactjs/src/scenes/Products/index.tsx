@@ -10,7 +10,8 @@ import { EntityDto } from '../../services/dto/entityDto';
 import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
 import ProductStore from '../../stores/productStore';
-import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DownloadOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { CSVLink } from 'react-csv';
 
 export interface IProductProps {
   productStore: ProductStore;
@@ -125,7 +126,7 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
         title: L('Id'),
         dataIndex: 'id',
         key: 'id',
-        width: 150,
+        width: 70,
         render: (text: string) => <div>{text}</div>,
       },
       {
@@ -174,31 +175,65 @@ class Product extends AppComponentBase<IProductProps, IProductState> {
         title: L('Adet'),
         dataIndex: 'count',
         key: 'productCount',
-        width: 150,
+        width: 70,
         render: (text: number) =>
           text < 20 ? <Tag color="#cd201f">{text}</Tag> : <Tag color="#55acee">{text}</Tag>,
       },
       {
-        title: L('Aksiyonlar'),
-        width: 150,
+        title:('Aksiyonlar'),
+        width: 250,
         render: (text: string, item: any) => (
           <div>
-            <Dropdown
-              trigger={['click']}
-              overlay={
-                <Menu>
-                  <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>
-                    {L('Güncelle')}
-                  </Menu.Item>
-                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Sil')}</Menu.Item>
-                </Menu>
-              }
-              placement="bottomLeft"
-            >
-              <Button type="primary" icon={<SettingOutlined />}>
-                {L('Güncelle/Sil')}
-              </Button>
-            </Dropdown>
+            <Row gutter={16}>
+              <Col> 
+              <Dropdown
+                trigger={['click']}
+                overlay={
+                  <Menu>
+                    <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{('Güncelle')}</Menu.Item>
+                    <Menu.Item onClick={() => this.delete({ id: item.id })}>{ <><DeleteOutlined/> Sil </>}</Menu.Item>
+                  </Menu>
+                }
+                placement="bottomLeft"
+              >
+                <Button type="primary" icon={<SettingOutlined />}>
+                {('Güncelle/Sil')}
+                </Button>
+              </Dropdown>
+              </Col>
+              <Col>
+              <Dropdown
+                trigger={['click']}
+                overlay={
+                  <Menu>
+                    <Menu.Item>
+                      <CSVLink
+                        filename={"TableContent.csv"}
+                        data={products === undefined ? [] : products}
+                        className="btn btn-primary"
+                      >
+                        CSV Olarak Dışa Aktar
+                      </CSVLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                    <CSVLink
+                        filename={"products.pdf"}
+                        data={products === undefined ? [] : products}
+                        className="btn btn-primary"
+                      >
+                        PDF Olarak Dışa Aktar
+                      </CSVLink>
+                    </Menu.Item>
+                  </Menu>
+                }
+                placement="bottomLeft"
+              >
+                <Button type="primary" icon={<DownloadOutlined />}>
+                {('Dışarı Aktar')}
+                </Button>
+              </Dropdown>
+              </Col>
+          </Row>
           </div>
         ),
       },

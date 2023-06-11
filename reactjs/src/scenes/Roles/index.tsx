@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table } from 'antd';
+import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table, Tag } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
@@ -9,8 +9,9 @@ import { EntityDto } from '../../services/dto/entityDto';
 import { L } from '../../lib/abpUtility';
 import RoleStore from '../../stores/roleStore';
 import Stores from '../../stores/storeIdentifier';
-import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DownloadOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { FormInstance } from 'antd/lib/form';
+import { CSVLink } from 'react-csv';
 
 export interface IRoleProps {
   roleStore: RoleStore;
@@ -81,7 +82,7 @@ class Role extends AppComponentBase<IRoleProps, IRoleState> {
   delete(input: EntityDto) {
     const self = this;
     confirm({
-      title: 'Do you Want to delete these items?',
+      title: 'Silmek istediğinize emin misiniz?',
       onOk() {
         self.props.roleStore.delete(input);
       },
@@ -113,25 +114,63 @@ class Role extends AppComponentBase<IRoleProps, IRoleState> {
     const columns = [
       { title: L('RoleName'), dataIndex: 'name', key: 'name', width: 150, render: (text: string) => <div>{text}</div> },
       { title: L('DisplayName'), dataIndex: 'displayName', key: 'displayName', width: 150, render: (text: string) => <div>{text}</div> },
+      { title: L('Açıklama'), dataIndex: 'description', key: 'description', width: 150, render: (text: string) => <div>{text}</div> },
+      { title: L('İzinler') , dataIndex: 'grantedPermissions', key: 'grantedPermissions', width: 150, render: (text: string []) => text.map(x=><Tag color="blue">{x}</Tag>) },
       {
-        title: L('Actions'),
+        title:('Aksiyonlar'),
         width: 150,
         render: (text: string, item: any) => (
           <div>
-            <Dropdown
-              trigger={['click']}
-              overlay={
-                <Menu>
-                  <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{L('Edit')}</Menu.Item>
-                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>
-                </Menu>
-              }
-              placement="bottomLeft"
-            >
-              <Button type="primary" icon={<SettingOutlined />}>
-                {L('Actions')}
-              </Button>
-            </Dropdown>
+            <Row gutter={16}>
+              <Col> 
+              <Dropdown
+                trigger={['click']}
+                overlay={
+                  <Menu>
+                    <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{('Güncelle')}</Menu.Item>
+                    <Menu.Item onClick={() => this.delete({ id: item.id })}>{ <><DeleteOutlined/> Sil </>}</Menu.Item>
+                  </Menu>
+                }
+                placement="bottomLeft"
+              >
+                <Button type="primary" icon={<SettingOutlined />}>
+                {('Güncelle/Sil')}
+                </Button>
+              </Dropdown>
+              </Col>
+              <Col>
+              <Dropdown
+                trigger={['click']}
+                overlay={
+                  <Menu>
+                    <Menu.Item>
+                      <CSVLink
+                        filename={"TableContent.csv"}
+                        data={roles === undefined ? [] : roles.items}
+                        className="btn btn-primary"
+                      >
+                        CSV Olarak Dışa Aktar
+                      </CSVLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                    <CSVLink
+                        filename={"roles.pdf"}
+                        data={roles === undefined ? [] : roles.items}
+                        className="btn btn-primary"
+                      >
+                        PDF Olarak Dışa Aktar
+                      </CSVLink>
+                    </Menu.Item>
+                  </Menu>
+                }
+                placement="bottomLeft"
+              >
+                <Button type="primary" icon={<DownloadOutlined />}>
+                {('Dışarı Aktar')}
+                </Button>
+              </Dropdown>
+              </Col>
+          </Row>
           </div>
         ),
       },
