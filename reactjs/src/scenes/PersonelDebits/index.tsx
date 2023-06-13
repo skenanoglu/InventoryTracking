@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table } from 'antd';
+import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table, Tag } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -13,10 +13,12 @@ import { DeleteOutlined, DownloadOutlined, PlusOutlined, SettingOutlined } from 
 import ProductStore from '../../stores/productStore';
 import { CSVLink } from 'react-csv';
 import { L } from '../../lib/abpUtility';
+import UserStore from '../../stores/userStore';
 
 export interface IPersonelDebitProps {
   personelDebitStore: PersonelDebitStore;
   productStore: ProductStore;
+  userStore: UserStore;
 }
 
 export interface IPersonelDebitState {
@@ -32,6 +34,7 @@ const Search = Input.Search;
 
 @inject(Stores.PersonelDebitStore)
 @inject(Stores.ProductStore)
+@inject(Stores.UserStore)
 @observer
 class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebitState> {
   formRef = React.createRef<FormInstance>();
@@ -127,27 +130,15 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
 
   public render() {
     const { PersonelDebits } = this.props.personelDebitStore;
+    const { users } = this.props.userStore;
+    
     const columns = [
       {
         title: ('İsim'),
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'userId',
+        key: 'userId',
         width: 150,
-        render: (text: string) => <div>{text}</div>,
-      },
-      {
-        title: ('Soyisim'),
-        dataIndex: 'surName',
-        key: 'surName',
-        width: 150,
-        render: (text: string) => <div>{text}</div>,
-      },
-      {
-        title: ('TC Kimlik Numarası'),
-        dataIndex: 'tcno',
-        key: 'tcno',
-        width: 150,
-        render: (text: string) => <div>{text}</div>,
+        render: (text: any) => <Tag color='blue'>{users === undefined ? [] : users.items.find((x:any)=>x.id == text )?.fullName}</Tag>,
       },
       {
         title: ('Açıklama'),
@@ -168,7 +159,7 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
         dataIndex: "product",
         key: 'product',
         width: 150,
-        render: (text: any) => <div>{text.name}</div>,
+        render: (text: any) => <Tag color='blue'>{text.name}</Tag>,
       },
       {
         title: ('Ürün Sayısı'),
@@ -288,6 +279,8 @@ class PersonelDebit extends AppComponentBase<IPersonelDebitProps, IPersonelDebit
         </Row>
         <CreateOrUpdatePersonelDebit
           productStore={this.props.productStore}
+          userStore={this.props.userStore}
+
           formRef={this.formRef}
           visible={this.state.modalVisible}
           onCancel={() =>

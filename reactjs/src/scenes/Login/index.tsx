@@ -3,7 +3,7 @@ import './index.less';
 import * as React from 'react';
 import Logo from '../../images/logo.png';
 
-import { Avatar, Button, Card, Checkbox, Col, Form, Input, Modal, Row } from 'antd';
+import { Avatar, Button, Card, Col, Form, Input, Modal, Row } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { inject, observer } from 'mobx-react';
 
@@ -123,44 +123,29 @@ class Login extends React.Component<ILoginProps> {
               <div style={{ textAlign: 'center' }}>
                 <h3>{L('INVENTO (Kişisel Ve Kurumsal Zimmet Takibi)')}</h3>
               </div>
-              <FormItem name={'userNameOrEmailAddress'} rules={rules.userNameOrEmailAddress}>
+              <Form.Item name={'userNameOrEmailAddress'} rules={rules.userNameOrEmailAddress}>
                 <Input
                   placeholder={L('UserNameOrEmail')}
                   prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
                   size="large"
                 />
-              </FormItem>
+              </Form.Item>
 
-              <FormItem name={'password'} rules={rules.password}>
+              <Form.Item name={'password'} rules={rules.password}>
                 <Input
                   placeholder={L('Password')}
                   prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
                   type="password"
                   size="large"
                 />
-              </FormItem>
-              <Row style={{ margin: '0px 0px 10px 15px ' }}>
-                <Col span={12} offset={0}>
-                  <Checkbox
-                    checked={loginModel.rememberMe}
-                    onChange={loginModel.toggleRememberMe}
-                    style={{ paddingRight: 8 }}
-                  />
-                  {L('RememberMe')}
-                  <br />
-                  <a>{L('Şifremi Unuttum')}</a>
-                </Col>
-
-                <Col span={8} offset={4}>
-                  <Button
-                    style={{ backgroundColor: '#f5222d', color: 'white' }}
+              </Form.Item>
+                  <Button 
+                    style={{ backgroundColor: '#f5222d', color: 'white' , width : '100%' }}
                     htmlType={'submit'}
                     danger
                   >
                     {L('LogIn')}
                   </Button>
-                </Col>
-              </Row>
             </Card>
           </Col>
         </Row>

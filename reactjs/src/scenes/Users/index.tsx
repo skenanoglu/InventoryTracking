@@ -123,9 +123,10 @@ class User extends AppComponentBase<IUserProps, IUserState> {
     const { users } = this.props.userStore;
     const columns = [
       { title:'Kullanıcı Adı', dataIndex: 'userName', key: 'userName', width: 150, render: (text: string) => <div>{text}</div> },
-      { title:'İsim', dataIndex: 'name', key: 'name', width: 150, render: (text: string) => <div>{text}</div> },
-      { title:'Email Adres', dataIndex: 'emailAddress', key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
-      {
+      { title:'İsim', dataIndex: 'name', key: 'name', width: 100, render: (text: string) => <div>{text}</div> },
+      { title:'Email Adres', dataIndex: 'emailAddress', key: 'emailAddress', width: 100, render: (text: string) => <div>{text}</div> },
+      { title:'Roller', dataIndex: 'roleNames', key: 'roleNames', width: 100, render: (text: string[]) => text.map(x=><Tag color="blue">{x}</Tag>)},
+        {
         title:'Aktif Mi?',
         dataIndex: 'isActive',
         key: 'isActive',
@@ -134,7 +135,7 @@ class User extends AppComponentBase<IUserProps, IUserState> {
       },
       {
         title: 'Aksiyonlar',
-        width: 150,
+        width: 200,
         render: (text: string, item: any) => (
           <div>
             <Row gutter={16}>

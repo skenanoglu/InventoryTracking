@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using InventoryTrackingSystem.Companies;
 using InventoryTrackingSystem.Products;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,13 @@ namespace InventoryTrackingSystem.Debits
 {
     public class CorporateDebit : Entity , IFullAudited
     {
-        public int EmployeeId { get; set; }
+        public int CompanyId { get; set; }
         public string EmployeeDepartment { get; set; }
-        public string EmployeeName { get; set; }
         public int ProductId { get; set; }
         public int ProductCount { get; set; }
 
         public virtual Product Product { get; set; }
+        public virtual Company Company { get; set; }
 
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }

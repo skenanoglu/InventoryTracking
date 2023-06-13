@@ -3,10 +3,10 @@ import { action, observable } from 'mobx';
 import CreateCorporateDebitInput from '../services/corporateDebit/dto/createCorporateDebitInput';
 import { EntityDto } from '../services/dto/entityDto';
 import { GetAllCorporateDebitOutput } from '../services/corporateDebit/dto/getAllCorporateDebitOutput';
-import { PagedResultDto } from '../services/dto/pagedResultDto';
-import { PagedCorporateDebitResultRequestDto } from '../services/corporateDebit/dto/PagedCorporateDebitResultRequestDto';
+import type { PagedResultDto } from '../services/dto/pagedResultDto';
+import type { PagedCorporateDebitResultRequestDto } from '../services/corporateDebit/dto/PagedCorporateDebitResultRequestDto';
 import CorporateDebitModel from '../models/CorporateDebits/CorporateDebitModel';
-import UpdateCorporateDebitInput from '../services/corporateDebit/dto/updateCorporateDebitInput';
+import type UpdateCorporateDebitInput from '../services/corporateDebit/dto/updateCorporateDebitInput';
 import CorporateDebitService from '../services/corporateDebit/corporateDebitService';
 
 class CorporateDebitStore {
@@ -22,9 +22,8 @@ class CorporateDebitStore {
   async createCorporateDebit() {
     this.CorporateDebitModel = {
       id: 0,
-      employeeId: 0,
+      companyId : 0,
       employeeDepartment: '',
-      employeeName: '',
       productId: 0,
       productCount: 0,
     };

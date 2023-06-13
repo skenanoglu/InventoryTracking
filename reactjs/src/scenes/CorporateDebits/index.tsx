@@ -13,10 +13,12 @@ import CorporateDebitStore from '../../stores/corporateDebitStore';
 import { DeleteOutlined, DownloadOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import ProductStore from '../../stores/productStore';
 import { CSVLink } from 'react-csv';
+import CompanyStore from '../../stores/companyStore';
 
 export interface ICorporateDebitProps {
   corporateDebitStore: CorporateDebitStore;
   productStore: ProductStore;
+  companyStore: CompanyStore;
 }
 
 export interface ICorporateDebitState {
@@ -32,6 +34,7 @@ const Search = Input.Search;
 
 @inject(Stores.CorporateDebitStore) // dependency injection ile storedaki metodlar kullanılıor
 @inject(Stores.ProductStore) // dependency injection ile storedaki metodlar kullanılıor
+@inject(Stores.CompanyStore) // dependency injection ile storedaki metodlar kullanılıor
 @observer
 class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDebitState> {
   formRef = React.createRef<FormInstance>(); //form rereransı oluşturulur
@@ -138,19 +141,11 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
     
     const columns = [
       {
-        title: L('Çalışan Id'),
-        dataIndex: 'employeeId',
-        key: 'employeeId',
+        title: L('Şirket İsmi'),
+        dataIndex: "company",
+        key: 'company',
         width: 150,
-        render: (text: string) => <div>{text}</div>,
-      },
-
-      {
-        title: L('Çalışan İsmi'),
-        dataIndex: 'employeeName',
-        key: 'employeeName',
-        width: 150,
-        render: (text: string) => <Tag color="magenta">{text}</Tag>,
+        render: (text: any) => <div>{text.companyName}</div>,
       },
       {
         title: L('Çalışan Departmanı'),
@@ -291,6 +286,7 @@ class CorporateDebit extends AppComponentBase<ICorporateDebitProps, ICorporateDe
         </Row>
         <CreateOrUpdateCorporateDebit
           productStore={this.props.productStore}
+          companyStore={this.props.companyStore}
           formRef={this.formRef}
           visible={this.state.modalVisible}
           onCancel={() =>

@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using InventoryTrackingSystem.Authorization.Users;
 using InventoryTrackingSystem.Products;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,13 @@ namespace InventoryTrackingSystem.Debits
 {
     public class PersonalDebit : Entity, IFullAudited
     {
-        public string Name { get; set; }
-        public string SurName { get; set; }
         public string Description { get; set; }
-        public string TCNO { get; set; }
+        public int UserId { get; set; }
         public int ProductId { get; set; }
         public int ProductCount { get; set; }
 
         public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
 
         public long? CreatorUserId { get ; set; }
         public DateTime CreationTime { get; set; }

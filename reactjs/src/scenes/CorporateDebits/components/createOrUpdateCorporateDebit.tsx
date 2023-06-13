@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import { Form, Input, InputNumber, Modal, Select } from 'antd';
+import { Form, InputNumber, Modal, Select } from 'antd';
 
 import { FormInstance } from 'antd/lib/form';
 import '../index.less';
 import { L } from '../../../lib/abpUtility';
 import ProductStore from '../../../stores/productStore';
+import CompanyStore from '../../../stores/companyStore';
 
 export interface ICreateOrUpdateCorporateDebitProps {
   visible: boolean;
@@ -14,12 +15,14 @@ export interface ICreateOrUpdateCorporateDebitProps {
   onCancel: () => void;
   formRef: React.RefObject<FormInstance>;
   productStore: ProductStore;
+  companyStore : CompanyStore;
 }
 
 class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorporateDebitProps> {
 
   async componentDidMount(): Promise<void> {
     await this.props.productStore.getAll();
+    await this.props.companyStore.getAll();
   }
 
   render() {
@@ -37,6 +40,9 @@ class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorpor
 
     const products =()=> {
       return this.props.productStore.products && this.props.productStore.products.map(x=> {return {label : x.name , value: x.id}})
+    }    
+    const sirketler =()=> {
+      return this.props.companyStore.companies && this.props.companyStore.companies.map(x=> {return {label : x.companyName , value: x.id}})
     }
 
     const { visible, onCancel, onCreate, formRef } = this.props;
@@ -51,78 +57,52 @@ class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorpor
         className={'modalStyle'}
       >
         <Form ref={formRef}>
-          <Form.Item label={L('Çalışan Id')} name={'employeeId'} {...formItemLayout}>
-            <InputNumber />
+        <Form.Item label={"Şirket"} name={'companyId'} {...formItemLayout}>
+            <Select
+              options={sirketler()}
+            />
           </Form.Item>
           <Form.Item label={L('Departman')} name={'employeeDepartment'} {...formItemLayout}>
             <Select
               options={[
                 {
-                  value: 'Marketing Department',
-                  label: 'Marketing Department',
+                  value: 'Pazarlama Departmanı',
+                  label: 'Pazarlama Departmanı',
                 },
                 {
-                  value: 'Administration',
-                  label: 'Administration',
+                  value: 'Yönetici',
+                  label: 'Yönetici',
                 },
                 {
-                  value: 'Sales Department',
-                  label: 'Sales Department',
+                  value: 'Satış Departmanı',
+                  label: 'Satış Departmanı',
                 },
                 {
-                  value: 'Human Resource Department',
-                  label: 'Human Resource Department',
+                  value: 'İnsan Kaynakları Departmanı',
+                  label: 'İnsan Kaynakları Departmanı',
                 },
                 {
-                  value: 'Operations Department',
-                  label: 'Operations Department',
+                  value: 'Operations Departmanı',
+                  label: 'Operations Departmanı',
                 },
                 {
-                  value: 'Finance Department',
-                  label: 'Finance Department',
+                  value: 'Finans Departmanı',
+                  label: 'Finans Departmanı',
                 },
                 {
-                  value: 'Purchase Department',
-                  label: 'Purchase Department',
+                  value: 'Satın Alma Departmanı',
+                  label: 'Satın Alma Departmanı',
                 },
               ]}
             />
-          </Form.Item>
-          <Form.Item label={L('Çalışan İsmi')} name={'employeeName'} {...formItemLayout}>
-            <Input />
           </Form.Item>
           <Form.Item label={L('Ürün')} name={'productId'} {...formItemLayout}>
             <Select
-              style={{ width: 120 }}
               options={products()}
             />
           </Form.Item>
-          <Form.Item label={L('Ürün Sayısı')} name={'productCount'} {...formItemLayout}>
-            <Select
-              style={{ width: 120 }}
-              options={[
-                {
-                  value: '1',
-                  label: '1',
-                },
-                {
-                  value: '2',
-                  label: '2',
-                },
-                {
-                  value: '4',
-                  label: '4',
-                },
-                {
-                  value: '3',
-                  label: '3',
-                },
-                {
-                  value: '5',
-                  label: '5',
-                },
-              ]}
-            />
+          <Form.Item label={('Ürün Sayısı')} name={'productCount'} {...formItemLayout}>
+            <InputNumber />
           </Form.Item>
         </Form>
       </Modal>

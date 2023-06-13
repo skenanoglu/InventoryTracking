@@ -72,7 +72,7 @@ namespace InventoryTrackingSystem.Debits.CorporateDebits
         public override async Task<PagedResultDto<CorporateDebitDto>> GetAllAsync(CorporateDebitDto input)
         {
 
-           var result = Repository.Query(x => x).Include(x => x.Product).ToList();
+           var result = Repository.Query(x => x).Include(x => x.Product).Include(x=>x.Company).ToList();
 
             List<CorporateDebitDto> dtos = new List<CorporateDebitDto>();
 

@@ -5,6 +5,7 @@ import { Form, Input, InputNumber, Modal, Select } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 import '../index.less';
 import ProductStore from '../../../stores/productStore';
+import UserStore from '../../../stores/userStore';
 
 export interface ICreateOrUpdatePersonelDebitProps {
   visible: boolean;
@@ -13,12 +14,18 @@ export interface ICreateOrUpdatePersonelDebitProps {
   onCancel: () => void;
   formRef: React.RefObject<FormInstance>;
   productStore: ProductStore;
+  userStore : UserStore;
 }
 
 class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersonelDebitProps> {
 
   async componentDidMount(): Promise<void> {
     await this.props.productStore.getAll();
+    await this.props.userStore.getAll({
+      keyword: '',
+      maxResultCount: 10,
+      skipCount: 0
+    });
   }
 
   render() {
@@ -44,6 +51,9 @@ class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersone
     const products =()=> {
       return this.props.productStore.products && this.props.productStore.products.map(x=> {return {label : x.name , value: x.id}})
     }
+    const kullanicilar =()=> {
+      return this.props.userStore.users && this.props.userStore.users.items.map(x=> {return {label : x.fullName , value: x.id}})
+    }
 
     const { visible, onCancel, onCreate, formRef } = this.props;
 
@@ -57,16 +67,12 @@ class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersone
         className={'modalStyle'}
       >
         <Form ref={formRef}>
-          <Form.Item label={('İsim')} name={'name'} {...formItemLayout}>
-            <Input />
-          </Form.Item>
-          <Form.Item label={('Soyisim')} name={'surName'} {...formItemLayout}>
-            <Input />
+        <Form.Item label={"Kullanıcı"} name={'userId'} {...formItemLayout}>
+            <Select
+              options={kullanicilar()}
+            />
           </Form.Item>
           <Form.Item label={('Açıklama')} name={'description'} {...formItemLayout}>
-            <Input />
-          </Form.Item>
-          <Form.Item label={('TC NO')} name={'tcno'} {...formItemLayout}>
             <Input />
           </Form.Item>
           <Form.Item label={('Ürün')} name={'productId'} {...formItemLayout}>

@@ -28,10 +28,10 @@ export class Header extends React.Component<IHeaderProps> {
         <Col span={11}>
             <b>Invento ( Zimmet ve Envanter Takip Uygulaması )</b>
         </Col>
-        <Col style={{ padding: '0px 15px 20px 15px', textAlign: 'right' }} span={12}>
+        <Col style={{ paddingRight : 30,  textAlign: 'right'}} span={12}>
           <Link to="/logout">
-          <LogoutOutlined />
-            <span> {L('Logout')}</span>
+          <LogoutOutlined  style={{color : "red"}}/>
+            <span style={{color : "red" , fontSize : 20}}> {L('Logout')}</span>
         </Link>
         </Col>
       </Row>

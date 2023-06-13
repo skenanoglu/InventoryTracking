@@ -71,7 +71,7 @@ namespace InventoryTrackingSystem.Debits.PersonalDebits
         public override async Task<PagedResultDto<PersonalDebitDto>> GetAllAsync(PersonalDebitDto input)
         {
 
-            var result = Repository.Query(x => x).Include(x => x.Product).ToList();
+            var result = Repository.Query(x => x).Include(x => x.Product).Include(x => x.User).ToList();
 
             List<PersonalDebitDto> dtos = new List<PersonalDebitDto>();
 

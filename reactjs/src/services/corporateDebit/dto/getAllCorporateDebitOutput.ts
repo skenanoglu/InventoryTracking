@@ -1,8 +1,7 @@
 export interface GetAllCorporateDebitOutput {
   id: number;
-  employeeId: number;
   employeeDepartment: string;
-  employeeName: string;
+  companyId: number;
   productId: number;
   productCount: number;
 }
