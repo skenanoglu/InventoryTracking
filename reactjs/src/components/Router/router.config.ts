@@ -115,6 +115,15 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/PersonelDebits')),
   },
   {
+    path: '/hasarTespitFormu',
+    permission: '',
+    title: 'Hasar Tespiti',
+    name: 'hasarTespitFormu',
+    icon: UserAddOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/HasarTespit')),
+  },
+  {
     path: '/about',
     permission: '',
     title: 'Hakkında ve Öneriler',
