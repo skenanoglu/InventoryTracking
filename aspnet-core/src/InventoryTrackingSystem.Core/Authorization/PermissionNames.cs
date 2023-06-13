@@ -12,5 +12,6 @@
         public const string Pages_Products = "Pages.Products";
         public const string Pages_CorporateDebits = "Pages.CorporateDebits";
         public const string Pages_PersonalDebits = "Pages.PersonalDebits";
+        public const string Pages_Damage = "Pages.Damage";
     }
 }

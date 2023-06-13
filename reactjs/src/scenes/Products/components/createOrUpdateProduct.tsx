@@ -41,7 +41,7 @@ class CreateOrUpdateProduct extends React.Component<ICreateOrUpdateProductProps>
         visible={visible}
         onCancel={onCancel}
         onOk={onCreate}
-        title={L('Products')}
+        title={L('Ürünler')}
         width={550}
       >
         <Form ref={formRef}>

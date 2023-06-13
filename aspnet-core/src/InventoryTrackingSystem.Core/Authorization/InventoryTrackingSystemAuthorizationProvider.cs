@@ -15,6 +15,7 @@ namespace InventoryTrackingSystem.Authorization
             context.CreatePermission(PermissionNames.Pages_Products, L("Ürünler"));
             context.CreatePermission(PermissionNames.Pages_PersonalDebits, L("Kişisel Zimmet"));
             context.CreatePermission(PermissionNames.Pages_CorporateDebits, L("Kurumsal Zimmet"));
+            context.CreatePermission(PermissionNames.Pages_Damage, L("Hasar"));
             context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
         }
 

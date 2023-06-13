@@ -22,6 +22,7 @@ namespace InventoryTrackingSystem.EntityFrameworkCore
         public DbSet<Product> Product { get; set; }
         public DbSet<CorporateDebit> CorporateDebit { get; set; }
         public DbSet<PersonalDebit> PersonalDebit { get; set; }
+        public DbSet<Damage> Damage { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

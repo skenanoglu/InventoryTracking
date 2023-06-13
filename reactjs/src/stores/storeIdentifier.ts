@@ -9,4 +9,5 @@ export default class Stores {
   static CorporateDebitStore: string = 'corporateDebitStore';
   static PersonelDebitStore: string = 'personelDebitStore';
   static CompanyStore: string = 'companyStore';
+  static DamageStore: string = 'damageStore';
 }

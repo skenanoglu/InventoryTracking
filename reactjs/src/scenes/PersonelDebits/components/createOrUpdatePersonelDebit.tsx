@@ -62,7 +62,7 @@ class CreateOrUpdatePersonelDebit extends React.Component<ICreateOrUpdatePersone
         visible={visible}
         onCancel={onCancel}
         onOk={onCreate}
-        title={('PersonelDebits')}
+        title={('Kişisel Zimmet')}
         width={550}
         className={'modalStyle'}
       >

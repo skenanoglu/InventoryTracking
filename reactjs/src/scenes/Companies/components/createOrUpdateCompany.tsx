@@ -41,7 +41,7 @@ class CreateOrUpdateCompany extends React.Component<ICreateOrUpdateCompanyProps>
         visible={visible}
         onCancel={onCancel}
         onOk={onCreate}
-        title={L('Companies')}
+        title={L('Şirketler')}
         width={550}
       >
         <Form ref={formRef}>

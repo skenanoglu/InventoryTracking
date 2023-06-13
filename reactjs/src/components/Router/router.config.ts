@@ -11,6 +11,7 @@ import {
   ShopOutlined,
   UserOutlined,
   TagsOutlined,
+  IssuesCloseOutlined,
 } from '@ant-design/icons';
 
 export const userRouter: any = [
@@ -114,6 +115,15 @@ export const appRouters: any = [
     showInMenu: true,
     component: LoadableComponent(() => import('../../scenes/PersonelDebits')),
   },
+  {
+    path: '/damages',
+    permission: 'Pages.Damage',
+    title: 'Hasar Girişi',
+    name: 'damages',
+    showInMenu: true,
+    icon: IssuesCloseOutlined,
+    component: LoadableComponent(() => import('../../scenes/Damages')),
+  },  
   {
     path: '/about',
     permission: '',

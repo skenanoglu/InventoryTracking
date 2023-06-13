@@ -52,7 +52,7 @@ class CreateOrUpdateCorporateDebit extends React.Component<ICreateOrUpdateCorpor
         visible={visible}
         onCancel={onCancel}
         onOk={onCreate}
-        title={L('CorporateDebits')}
+        title={L('Kurumsal Zimmet')}
         width={700}
         className={'modalStyle'}
       >
