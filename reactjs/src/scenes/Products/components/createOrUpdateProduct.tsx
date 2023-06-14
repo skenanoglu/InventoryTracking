@@ -54,9 +54,8 @@ class CreateOrUpdateProduct extends React.Component<ICreateOrUpdateProductProps>
           <Form.Item label={L('Kapasite')} name={'capacity'} {...formItemLayout}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('Ağırlık')} name={'weight'} {...formItemLayout}>
+          <Form.Item label={L('Ağırlık')} name={'weight'} {...formItemLayout} initialValue={"0-1KG"}>
             <Select
-              defaultValue="0-1KG"
               style={{ width: 120 }}
               options={[
                 {

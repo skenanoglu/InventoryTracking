@@ -136,7 +136,7 @@ class CreateOrUpdateDamage extends React.Component<ICreateOrUpdateDamageProps,IC
           <Form.Item label={"Hasar Açıklaması"} name={'damageDescription'} {...formItemLayout}>
             <Input />
           </Form.Item>          
-          <Form.Item label={"Tamir Maliyeti"} name={'repairCost'} {...formItemLayout}>
+          <Form.Item label={"Tamir Maliyeti TL"} name={'repairCost'} {...formItemLayout}>
             <InputNumber />
           </Form.Item>          
           <Form.Item label={"Tamir Süresi"} name={'repairDate'} {...formItemLayout}>
